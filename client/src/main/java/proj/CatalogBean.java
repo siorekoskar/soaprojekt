@@ -67,4 +67,12 @@ public class CatalogBean implements Serializable {
     public void setCurrentElf(Elf currentElf) {
         this.currentElf = currentElf;
     }
+
+    public void removeElf(Elf elf){
+        remoteCatalogue.removeElf(elf);
+    }
+
+    public void removeForest(Forest forest){
+        remoteCatalogue.removeForest(forest);
+    }
 }

@@ -60,7 +60,7 @@ public class Forest implements Serializable {
         return Objects.hash(forestId, height, userId);
     }
 
-    @OneToMany(mappedBy = "forestsByForestId", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "forestsByForestId", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     public List<Elf> getElvesByForestId() {
         return elvesByForestId;
     }

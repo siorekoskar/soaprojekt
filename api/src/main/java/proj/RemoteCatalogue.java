@@ -13,4 +13,6 @@ public interface RemoteCatalogue {
     List<Elf> getElves();
     void addForest(Integer height);
     void addElf(Elf elfName);
+    void removeElf(Elf elf);
+    void removeForest(Forest forest);
 }

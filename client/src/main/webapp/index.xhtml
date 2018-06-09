@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 <h:head></h:head>
 <f:view>
     <h:body>
@@ -13,9 +14,12 @@
             <ul>
             <ui:repeat value="#{catalogBean.catalogs}" var="catalog">
                 <li>#{catalog.forest}, #{catalog.forest.height}
+                <h:commandButton value="Remove" action="#{catalogBean.removeForest(catalog.forest)}"/>
                     <ul>
                     <ui:repeat value="#{catalog.elves}" var="elf">
-                        <li>#{elf}</li>
+                        <li>#{elf}
+                            <h:commandButton value="Remove" action="#{catalogBean.removeElf(elf)}"/>
+                        </li>
                     </ui:repeat>
                     </ul>
                 </li>

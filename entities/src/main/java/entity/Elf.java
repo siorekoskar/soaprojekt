@@ -6,7 +6,10 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "ELVES")
-@NamedQuery(name = "getAllElves", query = "SELECT OBJECT(e) FROM Elf e")
+@NamedQueries({
+        @NamedQuery(name = "getAllElves", query = "SELECT OBJECT(e) FROM Elf e"),
+        @NamedQuery(name = "removeElf", query = "DELETE FROM Elf WHERE Elf.elfId = :elfId")
+})
 public class Elf implements Serializable {
 
     private static final long serialVersionUID = 7773464502610941698L;

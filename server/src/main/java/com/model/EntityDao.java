@@ -28,14 +28,26 @@ public class EntityDao {
     }
 
     @Transactional
-    public void addForest(Integer height){
+    public void addForest(Integer height) {
         Forest f = new Forest();
         f.setHeight(height);
         entityManager.persist(f);
     }
 
     @Transactional
-    public void addElf(Elf elf){
+    public void addElf(Elf elf) {
         entityManager.persist(elf);
+    }
+
+    @Transactional
+    public void removeElf(Elf elf) {
+        entityManager.createNamedQuery("removeElf")
+                .setParameter("elfId", elf.getElfId())
+                .executeUpdate();
+    }
+
+    @Transactional
+    public void removeForest(Forest forest) {
+        entityManager.remove(entityManager.contains(forest) ? forest : entityManager.merge(forest));
     }
 }
