@@ -4,13 +4,15 @@ import entity.Catalog;
 import entity.Elf;
 import entity.Forest;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.ConversationScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
 
-@SessionScoped
+@ConversationScoped
 @Named
 public class CatalogBean implements Serializable {
 
@@ -20,9 +22,15 @@ public class CatalogBean implements Serializable {
     private RemoteCatalogue remoteCatalogue;
 
     private Forest currentForest;
+    private List<Catalog> catalogs;
 
     public void sendElf(String elfName) {
         remoteCatalogue.addElf(elfName, currentForest);
+    }
+
+    @PostConstruct
+    private void setup() {
+        catalogs = remoteCatalogue.getCatalogs();
     }
 
     public List<Catalog> getCatalogs() {
@@ -30,7 +38,9 @@ public class CatalogBean implements Serializable {
     }
 
     public List<Forest> getForests() {
-        return remoteCatalogue.getForests();
+        return catalogs.stream()
+                .map(Catalog::getForest)
+                .collect(Collectors.toList());
     }
 
     public List<Elf> getElves() {
