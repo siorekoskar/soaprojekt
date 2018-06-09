@@ -2,39 +2,52 @@ package entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
-@Table(name = "ELVES")
+@Table(name = "ELVES", schema = "projekt")
 public class Elf implements Serializable {
 
-    private static final long serialVersionUID = -1447366905522562997L;
-
+    private static final long serialVersionUID = 7773464502610941698L;
     private int elfId;
+    private Integer arrowType;
+    private Integer arrowsCount;
     private String name;
-    private int arrowsCount;
-    private int arrowType;
-    private int power;
-    private int forestId;
+    private Integer power;
+    private Forest forestsByForestId;
 
-    public Elf(String name, int forestId) {
-        this.name = name;
-        this.forestId = forestId;
-    }
-
-    public Elf() {
-    }
-
-    @Id
-    @GeneratedValue
-    @Column(name = "ELF_ID")
-    public int getElfId() {
-        return elfId;
-    }
-
-    public void setElfId(int elfId) {
+    public void setElfId(Integer elfId) {
         this.elfId = elfId;
     }
 
+    @Id
+    @Column(name = "ELF_ID", nullable = false)
+    public Integer getElfId() {
+        return elfId;
+    }
+
+
+    @Basic
+    @Column(name = "ARROW_TYPE")
+    public Integer getArrowType() {
+        return arrowType;
+    }
+
+    public void setArrowType(Integer arrowType) {
+        this.arrowType = arrowType;
+    }
+
+    @Basic
+    @Column(name = "ARROWS_COUNT")
+    public Integer getArrowsCount() {
+        return arrowsCount;
+    }
+
+    public void setArrowsCount(Integer arrowsCount) {
+        this.arrowsCount = arrowsCount;
+    }
+
+    @Basic
     @Column(name = "NAME")
     public String getName() {
         return name;
@@ -44,44 +57,41 @@ public class Elf implements Serializable {
         this.name = name;
     }
 
-    @Column(name = "ARROWS_COUNT")
-    public int getArrowsCount() {
-        return arrowsCount;
-    }
-
-    public void setArrowsCount(int arrowsCount) {
-        this.arrowsCount = arrowsCount;
-    }
-
-    @Column(name = "ARROW_TYPE")
-    public int getArrowType() {
-        return arrowType;
-    }
-
-    public void setArrowType(int arrowType) {
-        this.arrowType = arrowType;
-    }
-
+    @Basic
     @Column(name = "POWER")
-    public int getPower() {
+    public Integer getPower() {
         return power;
     }
 
-    public void setPower(int power) {
+    public void setPower(Integer power) {
         this.power = power;
     }
 
-    @Column(name = "FOREST_ID")
-    public int getForestId() {
-        return forestId;
-    }
-
-    public void setForestId(int forestId) {
-        this.forestId = forestId;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Elf that = (Elf) o;
+        return elfId == that.elfId &&
+                Objects.equals(arrowType, that.arrowType) &&
+                Objects.equals(arrowsCount, that.arrowsCount) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(power, that.power);
     }
 
     @Override
-    public String toString() {
-        return String.format("Elf %s: arrows count: %d, arrows type: %s, power: %d", name, arrowsCount, arrowType, power);
+    public int hashCode() {
+
+        return Objects.hash(elfId, arrowType, arrowsCount, name, power);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "FOREST_ID", referencedColumnName = "FOREST_ID")
+    public Forest getForestsByForestId() {
+        return forestsByForestId;
+    }
+
+    public void setForestsByForestId(Forest forestsByForestId) {
+        this.forestsByForestId = forestsByForestId;
     }
 }

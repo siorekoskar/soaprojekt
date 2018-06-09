@@ -1,8 +1,5 @@
 package com.controller;
 
-import entity.Elf;
-import entity.Forest;
-
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
@@ -22,8 +19,9 @@ public class Controller {
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
     public Response insert() {
-        Forest entity = new Forest(17);
-        em.persist(new Elf("erni", 1));
-        return Response.ok(entity).build();
+//        Forest entity = new Forest(17);
+//        em.persist(new Elf("erni", 1));
+//        return Response.ok(entity).build();
+        return null;
     }
 }
