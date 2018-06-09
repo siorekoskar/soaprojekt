@@ -6,6 +6,7 @@ import entity.Forest;
 import javax.faces.bean.ManagedBean;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NamedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -41,8 +42,8 @@ public class EntityDao {
 
     @Transactional
     public void removeElf(Elf elf) {
-        entityManager.createNamedQuery("removeElf")
-                .setParameter("elfId", elf.getElfId())
+        entityManager.createNativeQuery("DELETE FROM elves WHERE elf_id = ?", Elf.class)
+                .setParameter(1, elf.getElfId())
                 .executeUpdate();
     }
 

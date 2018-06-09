@@ -1,54 +1,46 @@
 package entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
-@Table(name = "USERS")
-public class User implements Serializable {
-
-    private static final long serialVersionUID = 929226261600233494L;
-
-    private String userId;
-    private String login;
-    private String password;
-    private String role;
+@Table(name = "USERS", schema = "projekt")
+public class User {
+    private Integer userId;
+    private List<Forest> forestsByUserId;
 
     @Id
-    @GeneratedValue
-    @Column(name = "USER_ID")
-    public String getUserId() {
+    @Column(name = "USER_ID", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
-    @Column(name = "LOGIN")
-    public String getLogin() {
-        return login;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(userId, user.userId);
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(userId);
     }
 
-    @Column(name = "PASSWORD")
-    public String getPassword() {
-        return password;
+    @OneToMany(mappedBy = "usersByUserId")
+    public List<Forest> getForestsByUserId() {
+        return forestsByUserId;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    @Column(name = "ROLE")
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
+    public void setForestsByUserId(List<Forest> forestsByUserId) {
+        this.forestsByUserId = forestsByUserId;
     }
 }

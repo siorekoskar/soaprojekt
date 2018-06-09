@@ -2,7 +2,6 @@ package entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,14 +13,18 @@ public class Forest implements Serializable {
     private int forestId;
 
     private Integer height;
-    private Integer userId;
     private List<Elf> elvesByForestId;
+    private User usersByUserId;
 
     @Id
     @Column(name = "FOREST_ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getForestId() {
         return forestId;
+    }
+
+    public void setForestId(Integer forestId) {
+        this.forestId = forestId;
     }
 
     @Basic
@@ -34,30 +37,19 @@ public class Forest implements Serializable {
         this.height = height;
     }
 
-    @Basic
-    @Column(name = "USER_ID")
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Forest that = (Forest) o;
-        return forestId == that.forestId &&
-                Objects.equals(height, that.height) &&
-                Objects.equals(userId, that.userId);
+        Forest forest = (Forest) o;
+        return Objects.equals(forestId, forest.forestId) &&
+                Objects.equals(height, forest.height);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(forestId, height, userId);
+        return Objects.hash(forestId, height);
     }
 
     @OneToMany(mappedBy = "forestsByForestId", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
@@ -69,8 +61,14 @@ public class Forest implements Serializable {
         this.elvesByForestId = elvesByForestId;
     }
 
-    public void setForestId(Integer forestId) {
-        this.forestId = forestId;
+    @ManyToOne
+    @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
+    public User getUsersByUserId() {
+        return usersByUserId;
+    }
+
+    public void setUsersByUserId(User usersByUserId) {
+        this.usersByUserId = usersByUserId;
     }
 
     @Override
@@ -78,7 +76,6 @@ public class Forest implements Serializable {
         return "Forest{" +
                 "forestId=" + forestId +
                 ", height=" + height +
-                ", userId=" + userId +
                 '}';
     }
 }

@@ -5,10 +5,9 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ELVES")
+@Table(name = "ELVES", schema = "projekt")
 @NamedQueries({
         @NamedQuery(name = "getAllElves", query = "SELECT OBJECT(e) FROM Elf e"),
-        @NamedQuery(name = "removeElf", query = "DELETE FROM Elf WHERE Elf.elfId = :elfId")
 })
 public class Elf implements Serializable {
 
@@ -20,15 +19,15 @@ public class Elf implements Serializable {
     private Integer power;
     private Forest forestsByForestId;
 
-    public void setElfId(Integer elfId) {
-        this.elfId = elfId;
-    }
-
     @Id
     @Column(name = "ELF_ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getElfId() {
         return elfId;
+    }
+
+    public void setElfId(Integer elfId) {
+        this.elfId = elfId;
     }
 
     @Basic
@@ -75,12 +74,12 @@ public class Elf implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Elf that = (Elf) o;
-        return elfId == that.elfId &&
-                Objects.equals(arrowType, that.arrowType) &&
-                Objects.equals(arrowsCount, that.arrowsCount) &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(power, that.power);
+        Elf elf = (Elf) o;
+        return Objects.equals(elfId, elf.elfId) &&
+                Objects.equals(arrowType, elf.arrowType) &&
+                Objects.equals(arrowsCount, elf.arrowsCount) &&
+                Objects.equals(name, elf.name) &&
+                Objects.equals(power, elf.power);
     }
 
     @Override
