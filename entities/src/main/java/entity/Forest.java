@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "FORESTS", schema = "projekt")
+@Table(name = "FORESTS")
 public class Forest implements Serializable {
     private static final long serialVersionUID = -4758526350358053567L;
     private int forestId;
@@ -58,7 +58,7 @@ public class Forest implements Serializable {
         return Objects.hash(forestId, height, userId);
     }
 
-    @OneToMany(mappedBy = "forestsByForestId")
+    @OneToMany(mappedBy = "forestsByForestId", fetch = FetchType.EAGER)
     public List<Elf> getElvesByForestId() {
         return elvesByForestId;
     }

@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ELVES", schema = "projekt")
+@Table(name = "ELVES")
 public class Elf implements Serializable {
 
     private static final long serialVersionUID = 7773464502610941698L;
