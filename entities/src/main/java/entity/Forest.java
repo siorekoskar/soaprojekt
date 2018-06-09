@@ -1,13 +1,16 @@
 package entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "FORESTS",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = {"USER_ID", "FOREST_ID"})
         })
-public class Forest {
+public class Forest implements Serializable {
+
+    private static final long serialVersionUID = 422125652623546242L;
 
     private int forestId;
     private int height;

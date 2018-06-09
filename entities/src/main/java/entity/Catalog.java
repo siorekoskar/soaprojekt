@@ -1,8 +1,11 @@
 package entity;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Catalog {
+public class Catalog implements Serializable {
+
+    private static final long serialVersionUID = 7990195023759147131L;
 
     private Forest forest;
     private List<Elf> elves;

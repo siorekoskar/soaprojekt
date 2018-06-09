@@ -1,10 +1,13 @@
 package entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "USERS")
-public class User {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 929226261600233494L;
 
     private String userId;
     private String login;
