@@ -1,6 +1,7 @@
 package com.model;
 
 import entity.Catalog;
+import entity.Elf;
 import entity.Forest;
 import proj.RemoteCatalogue;
 
@@ -26,6 +27,11 @@ public class Catalogue implements RemoteCatalogue {
     @Override
     public List<Forest> getForests() {
         return catalogueService.getForests();
+    }
+
+    @Override
+    public List<Elf> getElves() {
+        return entityDao.getElves();
     }
 
     @Override

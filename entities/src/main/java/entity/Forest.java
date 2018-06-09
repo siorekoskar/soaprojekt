@@ -79,7 +79,6 @@ public class Forest implements Serializable {
                 "forestId=" + forestId +
                 ", height=" + height +
                 ", userId=" + userId +
-                ", elvesByForestId=" + elvesByForestId +
                 '}';
     }
 }

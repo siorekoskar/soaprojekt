@@ -12,7 +12,7 @@
     <h:body>
         <h:form>
             <h:outputLabel value="Add elf:"/><br/>
-            Elf name:<h:inputText
+            Elf name:<p:inputText
                 binding="#{elfName}"
                 id="elfName"
                 required="true"/><br/>
@@ -23,16 +23,16 @@
                 <p:ajax event="itemSelect" execute="@this"/>
             </p:selectOneMenu>
             <br/>
-            <h:commandButton value="add Elf" action="#{catalogBean.sendElf(elfName.value)}"/>
+            <p:commandButton value="add Elf" action="#{catalogBean.sendElf(elfName.value)}"/>
         </h:form>
 
         <h:form>
             <h:outputLabel value="Add Forest"/><br/>
-            Forest height:<h:inputText
+            Forest height:<p:inputText
                 binding="#{forestHeight}"
                 id="forestHeight"
                 required="true"/><br/>
-            <h:commandButton value="add Forest" action="#{catalogBean.addForest(forestHeight.value)}"/>
+            <p:commandButton value="add Forest" action="#{catalogBean.addForest(forestHeight.value)}"/>
         </h:form>
 
         <h:link value="index" outcome="index.xhtml"/><br/>

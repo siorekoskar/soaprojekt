@@ -6,10 +6,11 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "ELVES")
+@NamedQuery(name = "getAllElves", query = "SELECT OBJECT(e) FROM Elf e")
 public class Elf implements Serializable {
 
     private static final long serialVersionUID = 7773464502610941698L;
-    private int elfId;
+    private Integer elfId;
     private Integer arrowType;
     private Integer arrowsCount;
     private String name;
@@ -26,7 +27,6 @@ public class Elf implements Serializable {
     public Integer getElfId() {
         return elfId;
     }
-
 
     @Basic
     @Column(name = "ARROW_TYPE")
@@ -104,7 +104,6 @@ public class Elf implements Serializable {
                 ", arrowsCount=" + arrowsCount +
                 ", name='" + name + '\'' +
                 ", power=" + power +
-                ", forestsByForestId=" + forestsByForestId +
                 '}';
     }
 }

@@ -22,6 +22,12 @@ public class EntityDao {
     }
 
     @Transactional
+    public List<Elf> getElves() {
+        return entityManager.createNamedQuery("getAllElves", Elf.class)
+                .getResultList();
+    }
+
+    @Transactional
     public void addForest(Integer height){
         Forest f = new Forest();
         f.setHeight(height);
