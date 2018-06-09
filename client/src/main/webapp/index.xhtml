@@ -6,18 +6,25 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head></h:head>
-<h:body>
-    <f:view>
-        <h:form>
-            <ui:repeat value="#{catalogBean.catalogs}" var="catalog">
-                <li>#{catalog.forest}</li>
-                <ui:repeat value="#{catalog.elves}" var="elf">
-                    <li>#{elf.name}</li>
-                </ui:repeat>
-            </ui:repeat>
-        </h:form>
-    </f:view>
-    <h:link value="add" outcome="add.xhtml"/><br/>
+<f:view>
+    <h:body>
 
-</h:body>
+        <h:form>
+            <ul>
+            <ui:repeat value="#{catalogBean.catalogs}" var="catalog">
+                <li>#{catalog.forest}, #{catalog.forest.height}
+                    <ul>
+                    <ui:repeat value="#{catalog.elves}" var="elf">
+                        <li>#{elf.name}</li>
+                    </ui:repeat>
+                    </ul>
+                </li>
+            </ui:repeat>
+            </ul>
+        </h:form>
+    </h:body>
+
+</f:view>
+<h:link value="add" outcome="add.xhtml"/><br/>
+
 </html>
