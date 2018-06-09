@@ -18,7 +18,7 @@
             power: <p:inputText value="#{catalogBean.currentElf.power}"/>
 
             Forest:
-            <p:selectOneMenu id="Elko" value="#{catalogBean.currentForest}"
+            <p:selectOneMenu id="Elko" value="#{catalogBean.currentElf.forestsByForestId}"
                             converter="#{forestConverter}">
                 <f:selectItems value="#{catalogBean.forests}"/>
                 <p:ajax event="itemSelect" execute="@this"/>

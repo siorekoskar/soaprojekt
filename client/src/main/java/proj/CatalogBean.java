@@ -26,7 +26,7 @@ public class CatalogBean implements Serializable {
     private List<Catalog> catalogs;
 
     public void sendElf() {
-        remoteCatalogue.addElf(currentElf, currentForest);
+        remoteCatalogue.addElf(currentElf);
     }
 
     @PostConstruct
@@ -40,9 +40,7 @@ public class CatalogBean implements Serializable {
     }
 
     public List<Forest> getForests() {
-        return catalogs.stream()
-                .map(Catalog::getForest)
-                .collect(Collectors.toList());
+        return remoteCatalogue.getForests();
     }
 
     public List<Elf> getElves() {
