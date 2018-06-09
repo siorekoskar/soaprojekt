@@ -51,6 +51,7 @@ public class CatalogBean implements Serializable {
 
     public void addForest(Integer height) {
         remoteCatalogue.addForest(height);
+        catalogs = remoteCatalogue.getCatalogs();
     }
 
     public void setCurrentForest(Forest f) {

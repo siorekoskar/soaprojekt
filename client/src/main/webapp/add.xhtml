@@ -10,7 +10,7 @@
 <h:head></h:head>
 <f:view>
     <h:body>
-        <h:form>
+        <h:form id="elfForm">
             <h:outputLabel value="Add elf:"/><br/>
             Elf name:<p:inputText value="#{catalogBean.currentElf.name}" required="true"/><br/>
             arrowType: <p:inputText value="#{catalogBean.currentElf.arrowType}"/>
@@ -18,7 +18,7 @@
             power: <p:inputText value="#{catalogBean.currentElf.power}"/>
 
             Forest:
-            <p:selectOneMenu id="Elko" binding="#{height}" value="#{catalogBean.currentForest}"
+            <p:selectOneMenu id="Elko" value="#{catalogBean.currentForest}"
                             converter="#{forestConverter}">
                 <f:selectItems value="#{catalogBean.forests}"/>
                 <p:ajax event="itemSelect" execute="@this"/>
@@ -33,7 +33,9 @@
                 binding="#{forestHeight}"
                 id="forestHeight"
                 required="true"/><br/>
-            <p:commandButton value="add Forest" action="#{catalogBean.addForest(forestHeight.value)}"/>
+            <p:commandButton value="add Forest" action="#{catalogBean.addForest(forestHeight.value)}">
+                <f:ajax execute="@form" render=":elfForm"/>
+            </p:commandButton>
         </h:form>
 
         <h:link value="index" outcome="index.xhtml"/><br/>
