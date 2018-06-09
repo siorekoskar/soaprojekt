@@ -35,10 +35,8 @@ public class EntityDao {
     }
 
     @Transactional
-    public void addElf(String elfName, Forest forest){
-        Elf e = new Elf();
-        e.setName(elfName);
-        e.setForestsByForestId(forest);
-        entityManager.persist(e);
+    public void addElf(Elf elf, Forest forest){
+        elf.setForestsByForestId(forest);
+        entityManager.persist(elf);
     }
 }

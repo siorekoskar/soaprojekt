@@ -22,15 +22,17 @@ public class CatalogBean implements Serializable {
     private RemoteCatalogue remoteCatalogue;
 
     private Forest currentForest;
+    private Elf currentElf;
     private List<Catalog> catalogs;
 
-    public void sendElf(String elfName) {
-        remoteCatalogue.addElf(elfName, currentForest);
+    public void sendElf() {
+        remoteCatalogue.addElf(currentElf, currentForest);
     }
 
     @PostConstruct
     private void setup() {
         catalogs = remoteCatalogue.getCatalogs();
+        currentElf = new Elf();
     }
 
     public List<Catalog> getCatalogs() {
@@ -57,5 +59,13 @@ public class CatalogBean implements Serializable {
 
     public Forest getCurrentForest() {
         return currentForest;
+    }
+
+    public Elf getCurrentElf() {
+        return currentElf;
+    }
+
+    public void setCurrentElf(Elf currentElf) {
+        this.currentElf = currentElf;
     }
 }

@@ -12,10 +12,11 @@
     <h:body>
         <h:form>
             <h:outputLabel value="Add elf:"/><br/>
-            Elf name:<p:inputText
-                binding="#{elfName}"
-                id="elfName"
-                required="true"/><br/>
+            Elf name:<p:inputText value="#{catalogBean.currentElf.name}" required="true"/><br/>
+            arrowType: <p:inputText value="#{catalogBean.currentElf.arrowType}"/>
+            arrowsCount: <p:inputText value="#{catalogBean.currentElf.arrowsCount}"/>
+            power: <p:inputText value="#{catalogBean.currentElf.power}"/>
+
             Forest:
             <p:selectOneMenu id="Elko" binding="#{height}" value="#{catalogBean.currentForest}"
                             converter="#{forestConverter}">
@@ -23,7 +24,7 @@
                 <p:ajax event="itemSelect" execute="@this"/>
             </p:selectOneMenu>
             <br/>
-            <p:commandButton value="add Elf" action="#{catalogBean.sendElf(elfName.value)}"/>
+            <p:commandButton value="add Elf" action="#{catalogBean.sendElf}"/>
         </h:form>
 
         <h:form>

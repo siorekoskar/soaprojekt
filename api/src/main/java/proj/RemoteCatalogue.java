@@ -12,5 +12,5 @@ public interface RemoteCatalogue {
     List<Forest> getForests();
     List<Elf> getElves();
     void addForest(Integer height);
-    void addElf(String elfName, Forest forestId);
+    void addElf(Elf elfName, Forest forestId);
 }

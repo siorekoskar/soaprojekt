@@ -40,7 +40,7 @@ public class Catalogue implements RemoteCatalogue {
     }
 
     @Override
-    public void addElf(String elfName, Forest forest) {
-        entityDao.addElf(elfName, forest);
+    public void addElf(Elf elf, Forest forest) {
+        entityDao.addElf(elf, forest);
     }
 }
