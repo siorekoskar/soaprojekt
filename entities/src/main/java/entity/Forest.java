@@ -8,6 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "FORESTS")
+@NamedQuery(name = "getAllForests", query = "SELECT OBJECT(f) FROM Forest f")
 public class Forest implements Serializable {
     private static final long serialVersionUID = -4758526350358053567L;
     private int forestId;
@@ -18,6 +19,7 @@ public class Forest implements Serializable {
 
     @Id
     @Column(name = "FOREST_ID", nullable = false)
+    @GeneratedValue
     public Integer getForestId() {
         return forestId;
     }
@@ -58,7 +60,7 @@ public class Forest implements Serializable {
         return Objects.hash(forestId, height, userId);
     }
 
-    @OneToMany(mappedBy = "forestsByForestId", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "forestsByForestId", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public List<Elf> getElvesByForestId() {
         return elvesByForestId;
     }
@@ -69,5 +71,15 @@ public class Forest implements Serializable {
 
     public void setForestId(Integer forestId) {
         this.forestId = forestId;
+    }
+
+    @Override
+    public String toString() {
+        return "Forest{" +
+                "forestId=" + forestId +
+                ", height=" + height +
+                ", userId=" + userId +
+                ", elvesByForestId=" + elvesByForestId +
+                '}';
     }
 }

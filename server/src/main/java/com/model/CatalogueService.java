@@ -1,6 +1,7 @@
 package com.model;
 
 import entity.Catalog;
+import entity.Forest;
 
 import javax.faces.bean.ManagedBean;
 import javax.inject.Inject;
@@ -17,5 +18,9 @@ public class CatalogueService {
         return entityDao.getForests().stream()
                 .map(forest -> new Catalog(forest, forest.getElvesByForestId()))
                 .collect(Collectors.toList());
+    }
+
+    public List<Forest> getForests() {
+        return entityDao.getForests();
     }
 }

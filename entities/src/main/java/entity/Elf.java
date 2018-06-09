@@ -22,6 +22,7 @@ public class Elf implements Serializable {
 
     @Id
     @Column(name = "ELF_ID", nullable = false)
+    @GeneratedValue
     public Integer getElfId() {
         return elfId;
     }
@@ -85,7 +86,7 @@ public class Elf implements Serializable {
         return Objects.hash(elfId, arrowType, arrowsCount, name, power);
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "FOREST_ID", referencedColumnName = "FOREST_ID")
     public Forest getForestsByForestId() {
         return forestsByForestId;
@@ -93,5 +94,17 @@ public class Elf implements Serializable {
 
     public void setForestsByForestId(Forest forestsByForestId) {
         this.forestsByForestId = forestsByForestId;
+    }
+
+    @Override
+    public String toString() {
+        return "Elf{" +
+                "elfId=" + elfId +
+                ", arrowType=" + arrowType +
+                ", arrowsCount=" + arrowsCount +
+                ", name='" + name + '\'' +
+                ", power=" + power +
+                ", forestsByForestId=" + forestsByForestId +
+                '}';
     }
 }
