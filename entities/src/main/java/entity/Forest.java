@@ -19,7 +19,7 @@ public class Forest implements Serializable {
 
     @Id
     @Column(name = "FOREST_ID", nullable = false)
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getForestId() {
         return forestId;
     }

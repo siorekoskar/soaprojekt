@@ -17,7 +17,7 @@
                 id="elfName"
                 required="true"/><br/>
             Forest:
-            <p:selectOneMenu binding="#{height}" value="#{catalogBean.currentForest}"
+            <p:selectOneMenu id="Elko" binding="#{height}" value="#{catalogBean.currentForest}"
                             converter="#{forestConverter}">
                 <f:selectItems value="#{catalogBean.forests}"/>
                 <p:ajax event="itemSelect" execute="@this"/>

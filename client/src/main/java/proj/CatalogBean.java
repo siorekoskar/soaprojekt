@@ -1,15 +1,11 @@
 package proj;
 
-import converters.ForestConverter;
 import entity.Catalog;
+import entity.Elf;
 import entity.Forest;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
@@ -23,9 +19,6 @@ public class CatalogBean implements Serializable {
     @EJB(mappedName = "java:global/server/Catalogue!proj.RemoteCatalogue")
     private RemoteCatalogue remoteCatalogue;
 
-    @Inject
-    private ForestConverter forestConverter;
-
     private Forest currentForest;
 
     public void sendElf(String elfName) {
@@ -38,6 +31,10 @@ public class CatalogBean implements Serializable {
 
     public List<Forest> getForests() {
         return remoteCatalogue.getForests();
+    }
+
+    public List<Elf> getElves() {
+        return remoteCatalogue.getElves();
     }
 
     public void addForest(Integer height) {

@@ -23,7 +23,7 @@ public class Elf implements Serializable {
 
     @Id
     @Column(name = "ELF_ID", nullable = false)
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getElfId() {
         return elfId;
     }

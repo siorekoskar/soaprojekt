@@ -14,7 +14,7 @@
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="false" />
             <property name="hibernate.use_sql_comments" value="false" />
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
             <property name="toplink.jdbc.url" value="jdbc:mysql://localhost:3306/projekt"/>
             <property name="toplink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
