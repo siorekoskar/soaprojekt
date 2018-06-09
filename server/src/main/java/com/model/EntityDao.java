@@ -42,8 +42,8 @@ public class EntityDao {
 
     @Transactional
     public void removeElf(Elf elf) {
-        entityManager.createNativeQuery("DELETE FROM elves WHERE elf_id = ?", Elf.class)
-                .setParameter(1, elf.getElfId())
+        entityManager.createNamedQuery("removeElf")
+                .setParameter("elfId", elf.getElfId())
                 .executeUpdate();
     }
 

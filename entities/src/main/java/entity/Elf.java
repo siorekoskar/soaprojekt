@@ -8,6 +8,7 @@ import java.util.Objects;
 @Table(name = "ELVES", schema = "projekt")
 @NamedQueries({
         @NamedQuery(name = "getAllElves", query = "SELECT OBJECT(e) FROM Elf e"),
+        @NamedQuery(name = "removeElf", query = "DELETE FROM Elf e where e.elfId = :elfId")
 })
 public class Elf implements Serializable {
 
