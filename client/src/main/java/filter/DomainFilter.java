@@ -33,6 +33,7 @@ public class DomainFilter implements Filter {
         String jsessionId = ((HttpServletRequest) req).getSession().getId();
         if(userPrincipal == null){
             ((HttpServletResponse)resp).sendRedirect("/client/login.xhtml");
+            return;
         }
         String name = userPrincipal.getName();
         String s = jsessions.get(name);
@@ -44,7 +45,7 @@ public class DomainFilter implements Filter {
         } else {
             ((HttpServletRequest)req).getSession().invalidate();
             ((HttpServletResponse)resp).sendRedirect(((HttpServletRequest)req).getContextPath()
-                    + "/unsecure/login.xhtml?logged=juz%20jest%20zalogowany");
+                    + "/login.xhtml?logged=juz%20jest%20zalogowany");
         }
     }
 

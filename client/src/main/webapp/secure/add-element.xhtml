@@ -13,9 +13,10 @@
         <h:form>
             <h:outputLabel value="Creator:"/><br/>
             Category:
+            <h:panelGroup rendered="#{catalogBean.userCategories.size() != 0}">
             <p:selectOneMenu value="#{addEditElementController.currentElement.forestsByForestId}"
                              converter="#{categoryConverter}">
-                <f:selectItems value="#{catalogBean.categories}"/>
+                <f:selectItems value="#{catalogBean.userCategories}"/>
                 <p:ajax event="itemSelect" execute="@this"/>
             </p:selectOneMenu><br/>
             ElementType:
@@ -40,6 +41,10 @@
             <p:commandButton value="SUBMIT" action="#{addEditElementController.sendElf}">
                 <f:ajax execute="@form" process="@form"/>
             </p:commandButton>
+
+            </h:panelGroup>
+            <h:outputLabel value="BRAK KATEGORII" rendered="#{catalogBean.userCategories.size() == 0}"/>
+
         </h:form>
 
         <h:link value="index" outcome="index.xhtml"/><br/>

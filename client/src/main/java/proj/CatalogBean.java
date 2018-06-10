@@ -1,9 +1,6 @@
 package proj;
 
-import entity.CategoryType;
-import entity.Elf;
-import entity.Forest;
-import entity.User;
+import entity.*;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -12,6 +9,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @ConversationScoped
 @Named
@@ -31,6 +29,16 @@ public class CatalogBean implements Serializable {
 
     public List<Forest> getCategories() {
         return remoteCatalogue.getForests();
+    }
+
+    public List<Forest> getUserCategories() {
+        String remoteUser = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
+        if (FacesContext.getCurrentInstance().getExternalContext().isUserInRole(Role.Administrator.name())) {
+            return getCategories();
+        }
+        return remoteCatalogue.getForests().stream()
+                .filter(category -> category.getUsersByUserId().getLogin().equals(remoteUser))
+                .collect(Collectors.toList());
     }
 
     public List<CategoryType> getCategoryTypes() {

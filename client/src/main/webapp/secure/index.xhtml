@@ -17,7 +17,9 @@
                         <ul>
                             <ui:repeat value="#{categoryType.forestsByCategoryTypeId}" var="category">
                                 <li>#{category.usersByUserId}, #{category.height}
-                                    <h:commandButton value="REMOVE" action="#{catalogBean.removeCategory(category)}"/>
+                                    <h:commandButton value="REMOVE" action="#{catalogBean.removeCategory(category)}"
+                                                     rendered="#{userController.canEdit(category.usersByUserId.login)}"
+                                    />
                                     <ul>
                                         <ui:repeat value="#{category.elvesByForestId}" var="element">
                                             <li>
@@ -25,8 +27,12 @@
                                                 #{element.elementTypeByElementTypeId.powerLabel}: #{element.power},
                                                 #{element.elementTypeByElementTypeId.intLabel1}: #{element.arrowsCount},
                                                 #{element.elementTypeByElementTypeId.intLabel2}: #{element.arrowType}
-                                                <h:commandButton value="REMOVE" action="#{catalogBean.removeElement(element)}"/>
-                                                <h:commandButton value="EDIT" action="#{catalogBean.editElement(element)}"/>
+                                                <h:commandButton value="REMOVE" action="#{catalogBean.removeElement(element)}"
+                                                                 rendered="#{userController.canEdit(category.usersByUserId.login)}"
+                                                />
+                                                <h:commandButton value="EDIT" action="#{catalogBean.removeElement(element)}"
+                                                                 rendered="#{userController.canEdit(category.usersByUserId.login)}"
+                                                />
                                             </li>
                                         </ui:repeat>
                                     </ul>

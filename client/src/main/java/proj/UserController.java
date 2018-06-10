@@ -52,4 +52,17 @@ public class UserController implements Serializable {
         userDetails = new UserDetails();
         return b;
     }
+
+    public boolean canEdit(String username){
+        return isUserAdmin() || isUsersCategory(username);
+    }
+
+    public boolean isUserAdmin(){
+        return FacesContext.getCurrentInstance().getExternalContext()
+                .isUserInRole(Role.Administrator.name());
+    }
+
+    public boolean isUsersCategory(String username){
+        return FacesContext.getCurrentInstance().getExternalContext().getRemoteUser().equals(username);
+    }
 }

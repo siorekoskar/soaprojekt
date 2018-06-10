@@ -17,7 +17,7 @@ public class LogoutServlet extends HttpServlet {
         DomainFilter.getJsessions().remove(name);
         request.getSession().invalidate();
         response.sendRedirect(request.getContextPath()
-                + "/unsecure/login.xhtml");
+                + "/login.xhtml");
 
     }
 
