@@ -28,8 +28,12 @@ public class EntityDao {
 
     @Transactional
     public void addCategory(Forest category) {
-        if(entityManager.contains(category)){
-            entityManager.merge(category);
+        if (category.getForestId() != null) {
+            entityManager.createNativeQuery("UPDATE forests f SET f.CATEGORY_TYPE_ID = ?, f.HEIGHT = ? WHERE f.FOREST_ID = ?")
+                    .setParameter(1, category.getCategoryTypeByCategoryTypeId().getCategoryTypeId())
+                    .setParameter(2, category.getHeight())
+                    .setParameter(3, category.getForestId())
+                    .executeUpdate();
         } else {
             entityManager.persist(category);
         }
@@ -37,7 +41,7 @@ public class EntityDao {
 
     @Transactional
     public void addElement(Elf element) {
-        if(element.getElfId() != null) {
+        if (element.getElfId() != null) {
             entityManager.createNativeQuery("UPDATE elves e SET " +
                     "e.element_type_id = ?, " +
                     "e.arrow_type = ?, " +

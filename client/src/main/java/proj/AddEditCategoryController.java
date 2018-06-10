@@ -4,9 +4,12 @@ import entity.CategoryType;
 import entity.Forest;
 import entity.User;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
@@ -21,6 +24,15 @@ public class AddEditCategoryController implements Serializable {
     @EJB(mappedName = "java:global/server/Catalogue!proj.RemoteCatalogue")
     private RemoteCatalogue remoteCatalogue;
 
+    @Inject
+    private Conversation conversation;
+
+    @PostConstruct
+    public void init() {
+        if (conversation.isTransient()) {
+            conversation.begin();
+        }
+    }
 
     public AddEditCategoryController() {
         currentCategory = new Forest();
@@ -34,7 +46,7 @@ public class AddEditCategoryController implements Serializable {
         this.currentCategory = currentCategory;
     }
 
-    public void sendCategory(){
+    public void sendCategory() {
         User remoteUser = remoteCatalogue.getUsers().stream()
                 .filter(user -> user.getLogin().equals(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser()))
                 .findFirst().get();
@@ -43,12 +55,12 @@ public class AddEditCategoryController implements Serializable {
         this.currentCategory = new Forest();
     }
 
-    public List<CategoryType> getCategoryTypes(){
+    public List<CategoryType> getCategoryTypes() {
         return remoteCatalogue.getCategoryTypes();
     }
 
-    public String goToEdit(Forest category){
+    public String goToEdit(Forest category) {
         this.currentCategory = category;
-        return "/secure/add-category.xhtml";
+        return "/secure/add-category.xhtml?cdi=" + conversation.getId();
     }
 }

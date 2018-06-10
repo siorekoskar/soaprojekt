@@ -33,8 +33,8 @@
                                                                  rendered="#{userController.canEdit(category.usersByUserId.login)}"
                                                 />
                                                 <h:commandButton value="EDIT" action="#{addEditElementController.goToEdit(element)}"
-                                                                 rendered="#{userController.canEdit(category.usersByUserId.login)}"
-                                                />
+                                                                 rendered="#{userController.canEdit(category.usersByUserId.login)}">
+                                                </h:commandButton>
                                             </li>
                                         </ui:repeat>
                                     </ul>
@@ -53,7 +53,7 @@
 <h:link value="user" outcome="user.xhtml"/><br/>
 
 <form action="${pageContext.request.contextPath}/client/logout">
-    <input type="submit" name="LOGOUT"/>
+    <input type="submit" name="LOGOUT" title="LOGOUT"/>
 </form>
 
 </html>

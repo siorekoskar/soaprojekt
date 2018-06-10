@@ -46,8 +46,8 @@
         <filter-name>LogFilter</filter-name>
         <url-pattern>/secure/*</url-pattern>
     </filter-mapping>
-    <filter>
 
+    <filter>
         <filter-name>BlockFilter</filter-name>
         <filter-class>filter.BlockLoginFilter</filter-class>
     </filter>
