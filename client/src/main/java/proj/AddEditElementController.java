@@ -3,7 +3,6 @@ package proj;
 import entity.ElementType;
 import entity.Elf;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Named;
@@ -20,8 +19,7 @@ public class AddEditElementController implements Serializable {
     @EJB(mappedName = "java:global/server/Catalogue!proj.RemoteCatalogue")
     private RemoteCatalogue remoteCatalogue;
 
-    @PostConstruct
-    private void setup() {
+    public AddEditElementController() {
         currentElement = new Elf();
     }
 
@@ -35,10 +33,16 @@ public class AddEditElementController implements Serializable {
 
     public void sendElf() {
         remoteCatalogue.addElf(currentElement);
+        currentElement = new Elf();
     }
 
-    public List<ElementType> getElementTypes(){
+    public List<ElementType> getElementTypes() {
         return remoteCatalogue.getElementTypes();
+    }
+
+    public String goToEdit(Elf elf) {
+        this.currentElement = elf;
+        return "/secure/add-element.xhtml";
     }
 }
 

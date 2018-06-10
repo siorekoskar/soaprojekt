@@ -30,7 +30,7 @@
                                                 <h:commandButton value="REMOVE" action="#{catalogBean.removeElement(element)}"
                                                                  rendered="#{userController.canEdit(category.usersByUserId.login)}"
                                                 />
-                                                <h:commandButton value="EDIT" action="#{catalogBean.removeElement(element)}"
+                                                <h:commandButton value="EDIT" action="#{addEditElementController.goToEdit(element)}"
                                                                  rendered="#{userController.canEdit(category.usersByUserId.login)}"
                                                 />
                                             </li>

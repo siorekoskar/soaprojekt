@@ -15,37 +15,55 @@ public class EntityDao {
     private EntityManager entityManager;
 
     @Transactional
-    public List<Forest> getForests() {
+    public List<Forest> getCategories() {
         return entityManager.createNamedQuery("getAllForests", Forest.class)
                 .getResultList();
     }
 
     @Transactional
-    public List<Elf> getElves() {
+    public List<Elf> getElements() {
         return entityManager.createNamedQuery("getAllElves", Elf.class)
                 .getResultList();
     }
 
     @Transactional
-    public void addForest(Forest category) {
+    public void addCategory(Forest category) {
         entityManager.persist(category);
     }
 
     @Transactional
-    public void addElf(Elf elf) {
-        entityManager.persist(elf);
+    public void addElement(Elf element) {
+        if(element.getElfId() != null) {
+            entityManager.createNativeQuery("UPDATE elves e SET " +
+                    "e.element_type_id = ?, " +
+                    "e.arrow_type = ?, " +
+                    "e.name = ?, " +
+                    "e.power = ?, " +
+                    "e.arrows_count = ?, " +
+                    "e.forest_id = ? WHERE e.elf_id = ?")
+                    .setParameter(1, element.getElementTypeByElementTypeId().getElementTypeId())
+                    .setParameter(2, element.getArrowType())
+                    .setParameter(3, element.getName())
+                    .setParameter(4, element.getPower())
+                    .setParameter(5, element.getArrowsCount())
+                    .setParameter(6, element.getForestsByForestId().getForestId())
+                    .setParameter(7, element.getElfId())
+                    .executeUpdate();
+        } else {
+            entityManager.persist(element);
+        }
     }
 
     @Transactional
-    public void removeElf(Elf elf) {
+    public void removeElement(Elf element) {
         entityManager.createNamedQuery("removeElf")
-                .setParameter("elfId", elf.getElfId())
+                .setParameter("elfId", element.getElfId())
                 .executeUpdate();
     }
 
     @Transactional
-    public void removeForest(Forest forest) {
-        entityManager.remove(entityManager.contains(forest) ? forest : entityManager.merge(forest));
+    public void removeCategory(Forest category) {
+        entityManager.remove(entityManager.contains(category) ? category : entityManager.merge(category));
     }
 
     @Transactional
@@ -73,7 +91,7 @@ public class EntityDao {
     }
 
     @Transactional
-    public List<ElementType> getElementTypes(){
+    public List<ElementType> getElementTypes() {
         return entityManager.createQuery("SELECT et FROM ElementType et", ElementType.class)
                 .getResultList();
     }

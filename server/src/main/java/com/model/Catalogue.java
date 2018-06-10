@@ -19,7 +19,7 @@ public class Catalogue implements RemoteCatalogue {
 
     @Override
     public List<Forest> getForests() {
-        return entityDao.getForests();
+        return entityDao.getCategories();
     }
 
     @Override
@@ -34,27 +34,27 @@ public class Catalogue implements RemoteCatalogue {
 
     @Override
     public List<Elf> getElves() {
-        return entityDao.getElves();
+        return entityDao.getElements();
     }
 
     @Override
     public void addForest(Forest category) {
-        entityDao.addForest(category);
+        entityDao.addCategory(category);
     }
 
     @Override
     public void addElf(Elf elf) {
-        entityDao.addElf(elf);
+        entityDao.addElement(elf);
     }
 
     @Override
     public void removeElf(Elf elf) {
-        entityDao.removeElf(elf);
+        entityDao.removeElement(elf);
     }
 
     @Override
     public void removeForest(Forest forest) {
-        entityDao.removeForest(forest);
+        entityDao.removeCategory(forest);
     }
 
     @Override
