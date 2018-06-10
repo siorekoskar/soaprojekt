@@ -76,4 +76,5 @@ public class User implements Serializable {
 
         return Objects.hash(userId);
     }
+
 }

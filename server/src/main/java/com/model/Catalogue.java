@@ -5,6 +5,7 @@ import entity.Elf;
 import entity.Forest;
 import entity.User;
 import proj.RemoteCatalogue;
+import proj.UserDetails;
 
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
@@ -58,5 +59,17 @@ public class Catalogue implements RemoteCatalogue {
     @Override
     public List<User> getUsers() {
         return entityDao.getUsers();
+    }
+
+    @Override
+    public boolean changePassword(UserDetails userDetails) {
+        User user = entityDao.findUser(userDetails.getUserName());
+        if (user != null && userDetails.getOldPassword().equals(user.getPassword())) {
+            user.setPassword(userDetails.getNewPassword());
+            entityDao.changePasswordForUser(user);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

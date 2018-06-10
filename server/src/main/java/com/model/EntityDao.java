@@ -7,7 +7,6 @@ import entity.User;
 import javax.faces.bean.ManagedBean;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.NamedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -57,5 +56,17 @@ public class EntityDao {
     public List<User> getUsers() {
         return entityManager.createQuery("SELECT u FROM User u", User.class)
                 .getResultList();
+    }
+
+    @Transactional
+    public User findUser(String userName) {
+        return entityManager.createQuery("SELECT u FROM User u WHERE u.login = :userName", User.class)
+                .setParameter("userName", userName)
+                .getSingleResult();
+    }
+
+    @Transactional
+    public void changePasswordForUser(User user) {
+        entityManager.persist(user);
     }
 }

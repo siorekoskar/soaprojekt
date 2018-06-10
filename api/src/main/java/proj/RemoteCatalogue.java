@@ -17,5 +17,5 @@ public interface RemoteCatalogue {
     void removeElf(Elf elf);
     void removeForest(Forest forest);
     List<User> getUsers();
-
+    boolean changePassword(UserDetails userDetails);
 }

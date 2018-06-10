@@ -1,18 +1,13 @@
 package proj;
 
-import javax.enterprise.context.ConversationScoped;
-import javax.inject.Named;
-import java.io.Serializable;
-
-@Named
-@ConversationScoped
-public class UserBean implements Serializable {
+public class UserBean implements UserDetails {
     private static final long serialVersionUID = 2545308528362461115L;
 
     private String newPassword;
     private String oldPassword;
     private String userName;
 
+    @Override
     public String getNewPassword() {
         return newPassword;
     }
@@ -21,6 +16,7 @@ public class UserBean implements Serializable {
         this.newPassword = newPassword;
     }
 
+    @Override
     public String getOldPassword() {
         return oldPassword;
     }
@@ -29,11 +25,21 @@ public class UserBean implements Serializable {
         this.oldPassword = oldPassword;
     }
 
+    @Override
     public String getUserName() {
         return userName;
     }
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    @Override
+    public String toString() {
+        return "UserBean{" +
+                "newPassword='" + newPassword + '\'' +
+                ", oldPassword='" + oldPassword + '\'' +
+                ", userName='" + userName + '\'' +
+                '}';
     }
 }
