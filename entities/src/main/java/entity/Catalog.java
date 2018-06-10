@@ -9,6 +9,7 @@ public class Catalog implements Serializable {
 
     private Forest forest;
     private List<Elf> elves;
+    private CategoryType categoryType;
 
     public Catalog(Forest forest, List<Elf> elves) {
         this.forest = forest;
@@ -29,5 +30,13 @@ public class Catalog implements Serializable {
 
     public void setElves(List<Elf> elves) {
         this.elves = elves;
+    }
+
+    public CategoryType getCategoryType() {
+        return categoryType;
+    }
+
+    public void setCategoryType(CategoryType categoryType) {
+        this.categoryType = categoryType;
     }
 }

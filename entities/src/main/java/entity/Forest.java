@@ -13,11 +13,12 @@ import java.util.Objects;
 @NamedQuery(name = "getAllForests", query = "SELECT OBJECT(f) FROM Forest f")
 public class Forest implements Serializable {
     private static final long serialVersionUID = -4758526350358053567L;
-    private int forestId;
 
+    private int forestId;
     private Integer height;
     private List<Elf> elvesByForestId;
     private User usersByUserId;
+    private CategoryType categoryTypeByCategoryTypeId;
 
     @Id
     @Column(name = "FOREST_ID", nullable = false)
@@ -72,6 +73,16 @@ public class Forest implements Serializable {
 
     public void setUsersByUserId(User usersByUserId) {
         this.usersByUserId = usersByUserId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "CATEGORY_TYPE_ID", referencedColumnName = "CATEGORY_TYPE_ID")
+    public CategoryType getCategoryTypeByCategoryTypeId() {
+        return categoryTypeByCategoryTypeId;
+    }
+
+    public void setCategoryTypeByCategoryTypeId(CategoryType categoryTypeByCategoryTypeId) {
+        this.categoryTypeByCategoryTypeId = categoryTypeByCategoryTypeId;
     }
 
     @Override

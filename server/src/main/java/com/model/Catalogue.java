@@ -1,9 +1,6 @@
 package com.model;
 
-import entity.Catalog;
-import entity.Elf;
-import entity.Forest;
-import entity.User;
+import entity.*;
 import org.apache.commons.codec.digest.DigestUtils;
 import proj.RemoteCatalogue;
 import proj.UserDetails;
@@ -33,6 +30,11 @@ public class Catalogue implements RemoteCatalogue {
     }
 
     @Override
+    public List<CategoryType> getCategoryTypes() {
+        return catalogueService.getCategoryTypes();
+    }
+
+    @Override
     public List<Elf> getElves() {
         return entityDao.getElves();
     }
@@ -40,6 +42,12 @@ public class Catalogue implements RemoteCatalogue {
     @Override
     public void addForest(Integer height) {
         entityDao.addForest(height);
+    }
+
+
+    @Override
+    public void addForest(Forest category) {
+        entityDao.addForest(category);
     }
 
     @Override

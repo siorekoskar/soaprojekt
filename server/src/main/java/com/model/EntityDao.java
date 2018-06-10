@@ -1,5 +1,6 @@
 package com.model;
 
+import entity.CategoryType;
 import entity.Elf;
 import entity.Forest;
 import entity.User;
@@ -36,6 +37,11 @@ public class EntityDao {
     }
 
     @Transactional
+    public void addForest(Forest category) {
+        entityManager.persist(category);
+    }
+
+    @Transactional
     public void addElf(Elf elf) {
         entityManager.persist(elf);
     }
@@ -68,5 +74,11 @@ public class EntityDao {
     @Transactional
     public void changePasswordForUser(User user) {
         entityManager.persist(user);
+    }
+
+    @Transactional
+    public List<CategoryType> getAllCategories() {
+        return entityManager.createQuery("SELECT ct FROM CategoryType ct", CategoryType.class)
+                .getResultList();
     }
 }

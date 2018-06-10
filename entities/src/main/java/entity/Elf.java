@@ -19,6 +19,7 @@ public class Elf implements Serializable {
     private String name;
     private Integer power;
     private Forest forestsByForestId;
+    private ElementType elementTypeByElementTypeId;
 
     @Id
     @Column(name = "ELF_ID", nullable = false)
@@ -97,6 +98,16 @@ public class Elf implements Serializable {
 
     public void setForestsByForestId(Forest forestsByForestId) {
         this.forestsByForestId = forestsByForestId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ELEMENT_TYPE_ID", referencedColumnName = "ELEMENT_TYPE_ID")
+    public ElementType getElementTypeByElementTypeId() {
+        return elementTypeByElementTypeId;
+    }
+
+    public void setElementTypeByElementTypeId(ElementType elementTypeByElementTypeId) {
+        this.elementTypeByElementTypeId = elementTypeByElementTypeId;
     }
 
     @Override

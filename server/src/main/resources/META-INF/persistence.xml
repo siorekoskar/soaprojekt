@@ -5,6 +5,8 @@
         <class>entity.Elf</class>
         <class>entity.Forest</class>
         <class>entity.User</class>
+        <class>entity.CategoryType</class>
+        <class>entity.ElementType</class>
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/projekt"/>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />

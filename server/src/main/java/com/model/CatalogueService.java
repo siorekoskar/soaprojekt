@@ -1,6 +1,7 @@
 package com.model;
 
 import entity.Catalog;
+import entity.CategoryType;
 import entity.Forest;
 
 import javax.faces.bean.ManagedBean;
@@ -22,5 +23,9 @@ public class CatalogueService {
 
     public List<Forest> getForests() {
         return entityDao.getForests();
+    }
+
+    public List<CategoryType> getCategoryTypes() {
+        return entityDao.getAllCategories();
     }
 }

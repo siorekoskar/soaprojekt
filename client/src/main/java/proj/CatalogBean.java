@@ -1,6 +1,7 @@
 package proj;
 
 import entity.Catalog;
+import entity.CategoryType;
 import entity.Elf;
 import entity.Forest;
 
@@ -10,7 +11,6 @@ import javax.enterprise.context.ConversationScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @ConversationScoped
 @Named
@@ -23,7 +23,9 @@ public class CatalogBean implements Serializable {
 
     private Forest currentForest;
     private Elf currentElf;
+    private CategoryType currentCategoryType;
     private List<Catalog> catalogs;
+    private Forest currentF;
 
     public void sendElf() {
         remoteCatalogue.addElf(currentElf);
@@ -33,6 +35,7 @@ public class CatalogBean implements Serializable {
     private void setup() {
         catalogs = remoteCatalogue.getCatalogs();
         currentElf = new Elf();
+        currentF = new Forest();
     }
 
     public List<Catalog> getCatalogs() {
@@ -43,12 +46,16 @@ public class CatalogBean implements Serializable {
         return remoteCatalogue.getForests();
     }
 
+    public List<CategoryType> getCategoryTypes() {
+        return remoteCatalogue.getCategoryTypes();
+    }
+
     public List<Elf> getElves() {
         return remoteCatalogue.getElves();
     }
 
-    public void addForest(Integer height) {
-        remoteCatalogue.addForest(height);
+    public void addCategory() {
+        remoteCatalogue.addForest(currentF);
         catalogs = remoteCatalogue.getCatalogs();
     }
 
@@ -74,5 +81,25 @@ public class CatalogBean implements Serializable {
 
     public void removeForest(Forest forest){
         remoteCatalogue.removeForest(forest);
+    }
+
+    public CategoryType getCurrentCategoryType() {
+        return currentCategoryType;
+    }
+
+    public void setCurrentCategoryType(CategoryType currentCategoryType) {
+        this.currentCategoryType = currentCategoryType;
+    }
+
+    public Forest getCurrentF() {
+        return currentF;
+    }
+
+    public void setCurrentF(Forest currentF) {
+        this.currentF = currentF;
+    }
+
+    public void updateLabel(){
+
     }
 }

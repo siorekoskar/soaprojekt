@@ -8,7 +8,7 @@
         <web-resource-collection>
             <web-resource-name>HtmlAuth</web-resource-name>
             <description>zasady bezpieczeństwa aplikacji</description>
-            <url-pattern>/secure/*</url-pattern>
+            <url-pattern>/secure/uu/*</url-pattern>
             <http-method>GET</http-method>
             <http-method>POST</http-method>
         </web-resource-collection>
