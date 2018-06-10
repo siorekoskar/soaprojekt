@@ -6,7 +6,10 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "FORESTS")
+@Table(name = "FORESTS",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"USER_ID", "FOREST_ID"})
+        })
 @NamedQuery(name = "getAllForests", query = "SELECT OBJECT(f) FROM Forest f")
 public class Forest implements Serializable {
     private static final long serialVersionUID = -4758526350358053567L;

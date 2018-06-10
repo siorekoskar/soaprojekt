@@ -3,6 +3,7 @@ package com.model;
 import entity.Catalog;
 import entity.Elf;
 import entity.Forest;
+import entity.User;
 import proj.RemoteCatalogue;
 
 import javax.ejb.Remote;
@@ -52,5 +53,10 @@ public class Catalogue implements RemoteCatalogue {
     @Override
     public void removeForest(Forest forest) {
         entityDao.removeForest(forest);
+    }
+
+    @Override
+    public List<User> getUsers() {
+        return entityDao.getUsers();
     }
 }

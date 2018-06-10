@@ -2,6 +2,7 @@ package com.model;
 
 import entity.Elf;
 import entity.Forest;
+import entity.User;
 
 import javax.faces.bean.ManagedBean;
 import javax.inject.Inject;
@@ -50,5 +51,11 @@ public class EntityDao {
     @Transactional
     public void removeForest(Forest forest) {
         entityManager.remove(entityManager.contains(forest) ? forest : entityManager.merge(forest));
+    }
+
+    @Transactional
+    public List<User> getUsers() {
+        return entityManager.createQuery("SELECT u FROM User u", User.class)
+                .getResultList();
     }
 }
