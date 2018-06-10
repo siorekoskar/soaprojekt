@@ -11,13 +11,13 @@
     <h:body>
         <h:form>
             <h:outputLabel value="change password"/><br/>
-            <p:selectOneMenu value="#{userController.userBean.user}"
+            <p:selectOneMenu value="#{userController.userDetails.user}"
                              converter="#{userConverter}">
                 <f:selectItems value="#{userController.users}"/>
                 <p:ajax event="itemSelect" execute="@this"/>
             </p:selectOneMenu><br/>
-            old password: <p:inputText value="#{userController.userBean.oldPassword}" required="true"/><br/>
-            new password: <p:inputText value="#{userController.userBean.newPassword}" required="true"/><br/>
+            old password: <p:inputText value="#{userController.userDetails.oldPassword}" required="true"/><br/>
+            new password: <p:inputText value="#{userController.userDetails.newPassword}" required="true"/><br/>
             <p:commandButton value="change" action="#{userController.changePassword}"/><br/><br/>
         </h:form>
     </h:body>

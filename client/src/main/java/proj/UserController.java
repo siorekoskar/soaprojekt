@@ -1,11 +1,15 @@
 package proj;
 
+import entity.Role;
 import entity.User;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 
 @SessionScoped
@@ -16,27 +20,36 @@ public class UserController implements Serializable {
     @EJB(mappedName = "java:global/server/Catalogue!proj.RemoteCatalogue")
     private RemoteCatalogue remoteCatalogue;
 
-    private UserBean userBean;
+    private UserDetails userDetails;
 
     public UserController() {
-        userBean = new UserBean();
+        userDetails = new UserDetails();
     }
 
-    public UserBean getUserBean() {
-        return userBean;
+    public UserDetails getUserDetails() {
+        return userDetails;
     }
 
-    public void setUserBean(UserBean userBean) {
-        this.userBean = userBean;
+    public void setUserDetails(UserDetails userDetails) {
+        this.userDetails = userDetails;
     }
 
     public List<User> getUsers() {
-        return remoteCatalogue.getUsers();
+        List<User> users = remoteCatalogue.getUsers();
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        if (externalContext.isUserInRole(Role.Administrator.name())) {
+            return users;
+        } else {
+            return Collections.singletonList(users.stream()
+                    .filter(user -> user.getLogin().equals(externalContext.getUserPrincipal().getName()))
+                    .findFirst()
+                    .get());
+        }
     }
 
     public boolean changePassword() {
-        boolean b = remoteCatalogue.changePassword(userBean);
-        userBean = new UserBean();
+        boolean b = remoteCatalogue.changePassword(userDetails);
+        userDetails = new UserDetails();
         return b;
     }
 }

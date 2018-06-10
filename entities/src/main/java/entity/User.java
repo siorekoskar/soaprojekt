@@ -77,4 +77,8 @@ public class User implements Serializable {
         return Objects.hash(userId);
     }
 
+    @Override
+    public String toString() {
+        return login;
+    }
 }
