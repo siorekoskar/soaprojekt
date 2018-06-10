@@ -20,7 +20,11 @@
                                     <h:commandButton value="REMOVE" action="#{catalogBean.removeForest(category)}"/>
                                     <ul>
                                         <ui:repeat value="#{category.elvesByForestId}" var="element">
-                                            <li>#{element.name}, #{element.power}, #{element.arrowsCount}, #{element.arrowType}
+                                            <li>
+                                                #{element.elementTypeByElementTypeId.nameLabel}: #{element.name},
+                                                #{element.elementTypeByElementTypeId.powerLabel}: #{element.power},
+                                                #{element.elementTypeByElementTypeId.intLabel1}: #{element.arrowsCount},
+                                                #{element.elementTypeByElementTypeId.intLabel2}: #{element.arrowType}
                                                 <h:commandButton value="REMOVE" action="#{catalogBean.removeElf(element)}"/>
                                             </li>
                                         </ui:repeat>

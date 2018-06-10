@@ -16,34 +16,26 @@ public class Catalogue implements RemoteCatalogue {
 
     @Inject
     private EntityDao entityDao;
-    @Inject
-    private CatalogueService catalogueService;
-
-    @Override
-    public List<Catalog> getCatalogs() {
-        return catalogueService.getCatalogs();
-    }
 
     @Override
     public List<Forest> getForests() {
-        return catalogueService.getForests();
+        return entityDao.getForests();
     }
 
     @Override
     public List<CategoryType> getCategoryTypes() {
-        return catalogueService.getCategoryTypes();
+        return entityDao.getAllCategories();
+    }
+
+    @Override
+    public List<ElementType> getElementTypes() {
+        return entityDao.getElementTypes();
     }
 
     @Override
     public List<Elf> getElves() {
         return entityDao.getElves();
     }
-
-    @Override
-    public void addForest(Integer height) {
-        entityDao.addForest(height);
-    }
-
 
     @Override
     public void addForest(Forest category) {

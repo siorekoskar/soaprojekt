@@ -1,9 +1,6 @@
 package com.model;
 
-import entity.CategoryType;
-import entity.Elf;
-import entity.Forest;
-import entity.User;
+import entity.*;
 
 import javax.faces.bean.ManagedBean;
 import javax.inject.Inject;
@@ -27,13 +24,6 @@ public class EntityDao {
     public List<Elf> getElves() {
         return entityManager.createNamedQuery("getAllElves", Elf.class)
                 .getResultList();
-    }
-
-    @Transactional
-    public void addForest(Integer height) {
-        Forest f = new Forest();
-        f.setHeight(height);
-        entityManager.persist(f);
     }
 
     @Transactional
@@ -79,6 +69,12 @@ public class EntityDao {
     @Transactional
     public List<CategoryType> getAllCategories() {
         return entityManager.createQuery("SELECT ct FROM CategoryType ct", CategoryType.class)
+                .getResultList();
+    }
+
+    @Transactional
+    public List<ElementType> getElementTypes(){
+        return entityManager.createQuery("SELECT et FROM ElementType et", ElementType.class)
                 .getResultList();
     }
 }

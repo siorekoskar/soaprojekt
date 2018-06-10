@@ -12,27 +12,41 @@
 
         <h:form>
             <h:outputLabel value="Creator:"/><br/>
-            name:<p:inputText value="#{addEditElementController.currentElement.name}" required="true"/><br/>
-            arrowType: <p:inputText value="#{addEditElementController.currentElement.arrowType}"/><br/>
-            arrowsCount: <p:inputText value="#{addEditElementController.currentElement.arrowsCount}"/><br/>
-            power: <p:inputText value="#{addEditElementController.currentElement.power}"/><br/>
-
-            Forest:
+            Category:
             <p:selectOneMenu value="#{addEditElementController.currentElement.forestsByForestId}"
                              converter="#{forestConverter}">
                 <f:selectItems value="#{catalogBean.forests}"/>
                 <p:ajax event="itemSelect" execute="@this"/>
-            </p:selectOneMenu>
-            <br/>
-            <p:commandButton value="SUBMIT" action="#{addEditElementController.sendElf}"/>
-        </h:form>
+            </p:selectOneMenu><br/>
+            ElementType:
+            <p:selectOneMenu value="#{addEditElementController.currentElement.elementTypeByElementTypeId}"
+                             converter="#{elementConverter}">
+                <f:selectItems value="#{addEditElementController.elementTypes}"/>
+                <p:ajax event="itemSelect" execute="@this" update="editor"/>
+            </p:selectOneMenu><br/>
 
+            <h:panelGroup id="editor">
+                <p:outputLabel value="#{addEditElementController.currentElement.elementTypeByElementTypeId.nameLabel}:"/>
+                <p:inputText value="#{addEditElementController.currentElement.name}" required="true"/><br/>
+                <p:outputLabel value="#{addEditElementController.currentElement.elementTypeByElementTypeId.powerLabel}:"/>
+                <p:inputText value="#{addEditElementController.currentElement.arrowType}"/><br/>
+                <p:outputLabel value="#{addEditElementController.currentElement.elementTypeByElementTypeId.intLabel1}:"/>
+                <p:inputText value="#{addEditElementController.currentElement.arrowsCount}"/><br/>
+                <p:outputLabel value="#{addEditElementController.currentElement.elementTypeByElementTypeId.intLabel2}:"/>
+                <p:inputText value="#{addEditElementController.currentElement.power}"/><br/>
+            </h:panelGroup>
+
+            <br/>
+            <p:commandButton value="SUBMIT" action="#{addEditElementController.sendElf}">
+                <f:ajax execute="@form" process="@form"/>
+            </p:commandButton>
+        </h:form>
 
         <h:link value="index" outcome="index.xhtml"/><br/>
         <h:link value="user" outcome="user.xhtml"/><br/>
     </h:body>
 </f:view>
 <form action="${pageContext.request.contextPath}/client/logout">
-    <input type="submit" name="LOGOUT"/>
+    <input type="submit" name="LOGOUT" value="LOGOUT"/>
 </form>
 </html>

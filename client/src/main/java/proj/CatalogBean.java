@@ -58,5 +58,4 @@ public class CatalogBean implements Serializable {
     public void setCurrentF(Forest currentF) {
         this.currentF = currentF;
     }
-
 }

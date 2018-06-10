@@ -6,13 +6,14 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ELEMENT_TYPE", schema = "projekt", catalog = "")
+@Table(name = "ELEMENT_TYPE")
 public class ElementType implements Serializable {
     private static final long serialVersionUID = 2783439311230756108L;
     private Integer elementTypeId;
-    private Integer nameLabel;
-    private Integer intLabel1;
-    private Integer powerLabel;
+    private String nameLabel;
+    private String intLabel1;
+    private String intLabel2;
+    private String powerLabel;
     private List<Elf> elvesByElementTypeId;
 
     @Id
@@ -26,32 +27,42 @@ public class ElementType implements Serializable {
     }
 
     @Basic
-    @Column(name = "NAME_LABEL", nullable = true)
-    public Integer getNameLabel() {
+    @Column(name = "NAME_LABEL", nullable = true, length = 255)
+    public String getNameLabel() {
         return nameLabel;
     }
 
-    public void setNameLabel(Integer nameLabel) {
+    public void setNameLabel(String nameLabel) {
         this.nameLabel = nameLabel;
     }
 
     @Basic
     @Column(name = "INT_LABEL_1", nullable = true)
-    public Integer getIntLabel1() {
+    public String getIntLabel1() {
         return intLabel1;
     }
 
-    public void setIntLabel1(Integer intLabel1) {
+    public void setIntLabel1(String intLabel1) {
         this.intLabel1 = intLabel1;
     }
 
     @Basic
+    @Column(name = "INT_LABEL_2", nullable = true)
+    public String getIntLabel2() {
+        return intLabel2;
+    }
+
+    public void setIntLabel2(String intLabel2) {
+        this.intLabel2 = intLabel2;
+    }
+
+    @Basic
     @Column(name = "POWER_LABEL", nullable = true)
-    public Integer getPowerLabel() {
+    public String getPowerLabel() {
         return powerLabel;
     }
 
-    public void setPowerLabel(Integer powerLabel) {
+    public void setPowerLabel(String powerLabel) {
         this.powerLabel = powerLabel;
     }
 
@@ -79,5 +90,15 @@ public class ElementType implements Serializable {
 
     public void setElvesByElementTypeId(List<Elf> elvesByElementTypeId) {
         this.elvesByElementTypeId = elvesByElementTypeId;
+    }
+
+    @Override
+    public String toString() {
+        return "ElementType{" +
+                "nameLabel='" + nameLabel + '\'' +
+                ", intLabel1='" + intLabel1 + '\'' +
+                ", intLabel2='" + intLabel2 + '\'' +
+                ", powerLabel='" + powerLabel + '\'' +
+                '}';
     }
 }
