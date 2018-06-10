@@ -3,10 +3,12 @@ package proj;
 import entity.CategoryType;
 import entity.Elf;
 import entity.Forest;
+import entity.User;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.ConversationScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
@@ -40,6 +42,10 @@ public class CatalogBean implements Serializable {
     }
 
     public void addCategory() {
+        User remoteUser = remoteCatalogue.getUsers().stream()
+                .filter(user -> user.getLogin().equals(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser()))
+                .findFirst().get();
+        currentCategory.setUsersByUserId(remoteUser);
         remoteCatalogue.addForest(currentCategory);
     }
 

@@ -32,7 +32,7 @@ public class DomainFilter implements Filter {
         Principal userPrincipal = ((HttpServletRequest) req).getUserPrincipal();
         String jsessionId = ((HttpServletRequest) req).getSession().getId();
         if(userPrincipal == null){
-            ((HttpServletResponse)resp).sendRedirect("/login.xhtml");
+            ((HttpServletResponse)resp).sendRedirect("/client/login.xhtml");
         }
         String name = userPrincipal.getName();
         String s = jsessions.get(name);
