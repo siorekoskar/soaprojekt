@@ -28,7 +28,11 @@ public class EntityDao {
 
     @Transactional
     public void addCategory(Forest category) {
-        entityManager.persist(category);
+        if(entityManager.contains(category)){
+            entityManager.merge(category);
+        } else {
+            entityManager.persist(category);
+        }
     }
 
     @Transactional

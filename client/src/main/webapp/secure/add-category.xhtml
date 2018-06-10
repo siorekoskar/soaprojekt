@@ -11,21 +11,23 @@
     <h:body>
 
         <h:form id="categoryForm">
-            <p:selectOneMenu id="categorySelector" value="#{catalogBean.currentCategory.categoryTypeByCategoryTypeId}"
+            <p:selectOneMenu id="categorySelector"
+                             value="#{addEditCategoryController.currentCategory.categoryTypeByCategoryTypeId}"
                              converter="#{categoryTypeConverter}">
-                <f:selectItems value="#{catalogBean.categoryTypes}"/>
+                <f:selectItems value="#{addEditCategoryController.categoryTypes}"/>
                 <p:ajax event="itemSelect"/>
             </p:selectOneMenu>
-                <br/><h:outputLabel value="Add Category"/><br/>
+            <br/><h:outputLabel value="Add Category"/><br/>
             <h:panelGroup id="paramLabel">
-                <h:outputLabel value="#{catalogBean.currentCategory.categoryTypeByCategoryTypeId.categoryPropertyLabel}"/>:
-                <p:inputNumber value="#{catalogBean.currentCategory.height}"
-                             id="categoryPropertyValue"
-                             required="true"/><br/>
+                <h:outputLabel
+                        value="#{addEditCategoryController.currentCategory.categoryTypeByCategoryTypeId.categoryPropertyLabel}"/>:
+                <p:inputNumber value="#{addEditCategoryController.currentCategory.height}"
+                               id="categoryPropertyValue"
+                               required="true"/><br/>
             </h:panelGroup>
-                <p:commandButton value="ADD" action="#{catalogBean.addCategory}">
-                    <f:ajax execute="@form" render=":categoryForm" process="@form"/>
-                </p:commandButton>
+            <p:commandButton value="SUBMIT" action="#{addEditCategoryController.sendCategory}">
+                <f:ajax execute="@form" process="@form"/>
+            </p:commandButton>
         </h:form>
 
         <h:link value="index" outcome="index.xhtml"/><br/>
@@ -33,6 +35,6 @@
     </h:body>
 </f:view>
 <form action="${pageContext.request.contextPath}/client/logout">
-    <input type="submit" name="LOGOUT"/>
+    <input type="submit" name="LOGOUT" value="LOGOUT"/>
 </form>
 </html>

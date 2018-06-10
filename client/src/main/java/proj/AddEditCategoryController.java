@@ -1,0 +1,54 @@
+package proj;
+
+import entity.CategoryType;
+import entity.Forest;
+import entity.User;
+
+import javax.ejb.EJB;
+import javax.enterprise.context.ConversationScoped;
+import javax.faces.context.FacesContext;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.List;
+
+@Named
+@ConversationScoped
+public class AddEditCategoryController implements Serializable {
+    private static final long serialVersionUID = 7428840868353047821L;
+
+    private Forest currentCategory;
+
+    @EJB(mappedName = "java:global/server/Catalogue!proj.RemoteCatalogue")
+    private RemoteCatalogue remoteCatalogue;
+
+
+    public AddEditCategoryController() {
+        currentCategory = new Forest();
+    }
+
+    public Forest getCurrentCategory() {
+        return currentCategory;
+    }
+
+    public void setCurrentCategory(Forest currentCategory) {
+        this.currentCategory = currentCategory;
+    }
+
+    public void sendCategory(){
+        User remoteUser = remoteCatalogue.getUsers().stream()
+                .filter(user -> user.getLogin().equals(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser()))
+                .findFirst().get();
+        currentCategory.setUsersByUserId(remoteUser);
+        remoteCatalogue.addForest(currentCategory);
+        this.currentCategory = new Forest();
+    }
+
+    public List<CategoryType> getCategoryTypes(){
+        return remoteCatalogue.getCategoryTypes();
+    }
+
+    public String goToEdit(Forest category){
+        this.currentCategory = category;
+        return "/secure/add-category.xhtml";
+    }
+}

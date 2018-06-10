@@ -15,11 +15,13 @@
                 <ui:repeat value="#{catalogBean.categoryTypes}" var="categoryType">
                     <li>#{categoryType.categoryName}, #{categoryType.categoryPropertyLabel}
                         <ul>
+                            KATEGORIE:
                             <ui:repeat value="#{categoryType.forestsByCategoryTypeId}" var="category">
-                                <li>#{category.usersByUserId}, #{category.height}
+                                <li>#{category.categoryTypeByCategoryTypeId.categoryName}, #{category.usersByUserId}, #{category.height}
                                     <h:commandButton value="REMOVE" action="#{catalogBean.removeCategory(category)}"
-                                                     rendered="#{userController.canEdit(category.usersByUserId.login)}"
-                                    />
+                                                     rendered="#{userController.canEdit(category.usersByUserId.login)}"/>
+                                    <h:commandButton value="EDIT" action="#{addEditCategoryController.goToEdit(category)}"
+                                                     rendered="#{userController.canEdit(category.usersByUserId.login)}"/>
                                     <ul>
                                         <ui:repeat value="#{category.elvesByForestId}" var="element">
                                             <li>

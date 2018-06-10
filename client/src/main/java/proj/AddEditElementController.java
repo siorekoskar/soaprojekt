@@ -31,7 +31,7 @@ public class AddEditElementController implements Serializable {
         this.currentElement = currentElement;
     }
 
-    public void sendElf() {
+    public void sendElement() {
         remoteCatalogue.addElf(currentElement);
         currentElement = new Elf();
     }
@@ -40,8 +40,8 @@ public class AddEditElementController implements Serializable {
         return remoteCatalogue.getElementTypes();
     }
 
-    public String goToEdit(Elf elf) {
-        this.currentElement = elf;
+    public String goToEdit(Elf element) {
+        this.currentElement = element;
         return "/secure/add-element.xhtml";
     }
 }
