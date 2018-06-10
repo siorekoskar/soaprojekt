@@ -20,14 +20,14 @@ public class CatalogBean implements Serializable {
     @EJB(mappedName = "java:global/server/Catalogue!proj.RemoteCatalogue")
     private RemoteCatalogue remoteCatalogue;
 
-    private Forest currentF;
+    private Forest currentCategory;
 
     @PostConstruct
     private void setup() {
-        currentF = new Forest();
+        currentCategory = new Forest();
     }
 
-    public List<Forest> getForests() {
+    public List<Forest> getCategories() {
         return remoteCatalogue.getForests();
     }
 
@@ -35,27 +35,27 @@ public class CatalogBean implements Serializable {
         return remoteCatalogue.getCategoryTypes();
     }
 
-    public List<Elf> getElves() {
+    public List<Elf> getElements() {
         return remoteCatalogue.getElves();
     }
 
     public void addCategory() {
-        remoteCatalogue.addForest(currentF);
+        remoteCatalogue.addForest(currentCategory);
     }
 
-    public void removeElf(Elf elf) {
+    public void removeElement(Elf elf) {
         remoteCatalogue.removeElf(elf);
     }
 
-    public void removeForest(Forest forest) {
+    public void removeCategory(Forest forest) {
         remoteCatalogue.removeForest(forest);
     }
 
-    public Forest getCurrentF() {
-        return currentF;
+    public Forest getCurrentCategory() {
+        return currentCategory;
     }
 
-    public void setCurrentF(Forest currentF) {
-        this.currentF = currentF;
+    public void setCurrentCategory(Forest currentCategory) {
+        this.currentCategory = currentCategory;
     }
 }

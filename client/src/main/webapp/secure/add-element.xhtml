@@ -14,13 +14,13 @@
             <h:outputLabel value="Creator:"/><br/>
             Category:
             <p:selectOneMenu value="#{addEditElementController.currentElement.forestsByForestId}"
-                             converter="#{forestConverter}">
-                <f:selectItems value="#{catalogBean.forests}"/>
+                             converter="#{categoryConverter}">
+                <f:selectItems value="#{catalogBean.categories}"/>
                 <p:ajax event="itemSelect" execute="@this"/>
             </p:selectOneMenu><br/>
             ElementType:
             <p:selectOneMenu value="#{addEditElementController.currentElement.elementTypeByElementTypeId}"
-                             converter="#{elementConverter}">
+                             converter="#{elementTypeConverter}">
                 <f:selectItems value="#{addEditElementController.elementTypes}"/>
                 <p:ajax event="itemSelect" execute="@this" update="editor"/>
             </p:selectOneMenu><br/>

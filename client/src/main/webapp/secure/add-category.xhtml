@@ -11,15 +11,15 @@
     <h:body>
 
         <h:form id="categoryForm">
-            <p:selectOneMenu id="categorySelector" value="#{catalogBean.currentF.categoryTypeByCategoryTypeId}"
-                             converter="#{categoryConverter}">
+            <p:selectOneMenu id="categorySelector" value="#{catalogBean.currentCategory.categoryTypeByCategoryTypeId}"
+                             converter="#{categoryTypeConverter}">
                 <f:selectItems value="#{catalogBean.categoryTypes}"/>
                 <p:ajax event="itemSelect"/>
             </p:selectOneMenu>
                 <br/><h:outputLabel value="Add Category"/><br/>
             <h:panelGroup id="paramLabel">
-                <h:outputLabel value="#{catalogBean.currentF.categoryTypeByCategoryTypeId.categoryPropertyLabel}"/>:
-                <p:inputNumber value="#{catalogBean.currentF.height}"
+                <h:outputLabel value="#{catalogBean.currentCategory.categoryTypeByCategoryTypeId.categoryPropertyLabel}"/>:
+                <p:inputNumber value="#{catalogBean.currentCategory.height}"
                              id="categoryPropertyValue"
                              required="true"/><br/>
             </h:panelGroup>

@@ -47,20 +47,6 @@ public class UserController implements Serializable {
         }
     }
 
-//    public void logout(){
-//        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-//        String name = externalContext.getUserPrincipal().getName();
-//        DomainFilter.getJsessions().remove(name);
-//        try {
-//            externalContext.redirect(externalContext.getRequestContextPath() + "/blank-page.jsp");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        String name2 = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
-//        DomainFilter.getJsessions().remove(name2);
-//
-//    }
-
     public boolean changePassword() {
         boolean b = remoteCatalogue.changePassword(userDetails);
         userDetails = new UserDetails();
