@@ -29,7 +29,11 @@ public class UserConverter implements Converter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        User forest = (User) value;
-        return forest.getLogin();
+        User forest;
+        if (value instanceof User) {
+            forest = (User) value;
+            return forest.getLogin();
+        }
+        return null;
     }
 }

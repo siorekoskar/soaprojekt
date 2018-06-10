@@ -3,9 +3,7 @@ package proj;
 import entity.User;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
@@ -37,6 +35,8 @@ public class UserController implements Serializable {
     }
 
     public boolean changePassword() {
-        return remoteCatalogue.changePassword(userBean);
+        boolean b = remoteCatalogue.changePassword(userBean);
+        userBean = new UserBean();
+        return b;
     }
 }

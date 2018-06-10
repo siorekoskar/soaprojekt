@@ -1,11 +1,14 @@
 package proj;
 
+import entity.User;
+
 public class UserBean implements UserDetails {
     private static final long serialVersionUID = 2545308528362461115L;
 
     private String newPassword;
     private String oldPassword;
     private String userName;
+    private User user;
 
     @Override
     public String getNewPassword() {
@@ -41,5 +44,14 @@ public class UserBean implements UserDetails {
                 ", oldPassword='" + oldPassword + '\'' +
                 ", userName='" + userName + '\'' +
                 '}';
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+        this.userName = user.getLogin();
     }
 }

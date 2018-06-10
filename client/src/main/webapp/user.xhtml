@@ -11,7 +11,7 @@
     <h:body>
         <h:form>
             <h:outputLabel value="change password"/><br/>
-            <p:selectOneMenu value="#{userController.userBean.userName}"
+            <p:selectOneMenu value="#{userController.userBean.user}"
                              converter="#{userConverter}">
                 <f:selectItems value="#{userController.users}"/>
                 <p:ajax event="itemSelect" execute="@this"/>
