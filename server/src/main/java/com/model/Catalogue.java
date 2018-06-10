@@ -4,6 +4,7 @@ import entity.Catalog;
 import entity.Elf;
 import entity.Forest;
 import entity.User;
+import org.apache.commons.codec.digest.DigestUtils;
 import proj.RemoteCatalogue;
 import proj.UserDetails;
 
@@ -64,8 +65,11 @@ public class Catalogue implements RemoteCatalogue {
     @Override
     public boolean changePassword(UserDetails userDetails) {
         User user = entityDao.findUser(userDetails.getUserName());
-        if (user != null && userDetails.getOldPassword().equals(user.getPassword())) {
-            user.setPassword(userDetails.getNewPassword());
+        String newUserPasswordHash = DigestUtils.sha256Hex(userDetails.getNewPassword());
+        String oldUserPasswordHash = DigestUtils.sha256Hex(userDetails.getOldPassword());
+
+        if (user != null && oldUserPasswordHash.equals(user.getPassword())) {
+            user.setPassword(newUserPasswordHash);
             entityDao.changePasswordForUser(user);
             return true;
         } else {
