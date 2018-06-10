@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<f:view>
+    <h:body>
+
+        <h:form>
+            <h:outputLabel value="Creator:"/><br/>
+            name:<p:inputText value="#{addEditElementController.currentElement.name}" required="true"/><br/>
+            arrowType: <p:inputText value="#{addEditElementController.currentElement.arrowType}"/><br/>
+            arrowsCount: <p:inputText value="#{addEditElementController.currentElement.arrowsCount}"/><br/>
+            power: <p:inputText value="#{addEditElementController.currentElement.power}"/><br/>
+
+            Forest:
+            <p:selectOneMenu value="#{addEditElementController.currentElement.forestsByForestId}"
+                             converter="#{forestConverter}">
+                <f:selectItems value="#{catalogBean.forests}"/>
+                <p:ajax event="itemSelect" execute="@this"/>
+            </p:selectOneMenu>
+            <br/>
+            <p:commandButton value="SUBMIT" action="#{addEditElementController.sendElf}"/>
+        </h:form>
+
+
+        <h:link value="index" outcome="index.xhtml"/><br/>
+        <h:link value="user" outcome="user.xhtml"/><br/>
+    </h:body>
+</f:view>
+<form action="${pageContext.request.contextPath}/client/logout">
+    <input type="submit" name="LOGOUT"/>
+</form>
+</html>

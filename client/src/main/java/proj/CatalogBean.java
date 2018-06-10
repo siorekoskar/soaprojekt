@@ -1,6 +1,5 @@
 package proj;
 
-import entity.Catalog;
 import entity.CategoryType;
 import entity.Elf;
 import entity.Forest;
@@ -21,25 +20,11 @@ public class CatalogBean implements Serializable {
     @EJB(mappedName = "java:global/server/Catalogue!proj.RemoteCatalogue")
     private RemoteCatalogue remoteCatalogue;
 
-    private Forest currentForest;
-    private Elf currentElf;
-    private CategoryType currentCategoryType;
-    private List<Catalog> catalogs;
     private Forest currentF;
-
-    public void sendElf() {
-        remoteCatalogue.addElf(currentElf);
-    }
 
     @PostConstruct
     private void setup() {
-        catalogs = remoteCatalogue.getCatalogs();
-        currentElf = new Elf();
         currentF = new Forest();
-    }
-
-    public List<Catalog> getCatalogs() {
-        return remoteCatalogue.getCatalogs();
     }
 
     public List<Forest> getForests() {
@@ -56,39 +41,14 @@ public class CatalogBean implements Serializable {
 
     public void addCategory() {
         remoteCatalogue.addForest(currentF);
-        catalogs = remoteCatalogue.getCatalogs();
     }
 
-    public void setCurrentForest(Forest f) {
-        currentForest = f;
-    }
-
-    public Forest getCurrentForest() {
-        return currentForest;
-    }
-
-    public Elf getCurrentElf() {
-        return currentElf;
-    }
-
-    public void setCurrentElf(Elf currentElf) {
-        this.currentElf = currentElf;
-    }
-
-    public void removeElf(Elf elf){
+    public void removeElf(Elf elf) {
         remoteCatalogue.removeElf(elf);
     }
 
-    public void removeForest(Forest forest){
+    public void removeForest(Forest forest) {
         remoteCatalogue.removeForest(forest);
-    }
-
-    public CategoryType getCurrentCategoryType() {
-        return currentCategoryType;
-    }
-
-    public void setCurrentCategoryType(CategoryType currentCategoryType) {
-        this.currentCategoryType = currentCategoryType;
     }
 
     public Forest getCurrentF() {
@@ -99,7 +59,4 @@ public class CatalogBean implements Serializable {
         this.currentF = currentF;
     }
 
-    public void updateLabel(){
-
-    }
 }
