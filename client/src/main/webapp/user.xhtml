@@ -20,6 +20,9 @@
             new password: <p:inputText value="#{userController.userDetails.newPassword}" required="true"/><br/>
             <p:commandButton value="change" action="#{userController.changePassword}"/><br/><br/>
         </h:form>
+        <h:form>
+            <p:commandButton value="LOGOUT" action="#{userController.logout}" execute="@this"/>
+        </h:form>
     </h:body>
 </f:view>
 

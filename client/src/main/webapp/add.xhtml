@@ -4,7 +4,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
 <h:head></h:head>
@@ -19,7 +18,7 @@
 
             Forest:
             <p:selectOneMenu id="Elko" value="#{catalogBean.currentElf.forestsByForestId}"
-                            converter="#{forestConverter}">
+                             converter="#{forestConverter}">
                 <f:selectItems value="#{catalogBean.forests}"/>
                 <p:ajax event="itemSelect" execute="@this"/>
             </p:selectOneMenu>
@@ -36,6 +35,9 @@
             <p:commandButton value="add Forest" action="#{catalogBean.addForest(forestHeight.value)}">
                 <f:ajax execute="@form" render=":elfForm"/>
             </p:commandButton>
+        </h:form>
+        <h:form>
+            <p:commandButton value="LOGOUT" action="#{userController.logout}" execute="@this"/>
         </h:form>
 
         <h:link value="index" outcome="index.xhtml"/><br/>

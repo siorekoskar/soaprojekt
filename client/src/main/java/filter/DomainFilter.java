@@ -15,19 +15,14 @@ public class DomainFilter implements Filter {
 
     private SessionContext context;
 
-    private Map<String, String> jsessions = new HashMap<>();
+    public static Map<String, String> getJsessions() {
+        return jsessions;
+    }
+
+    private static Map<String, String> jsessions = new HashMap<>();
 
     @Override
-    public void init(FilterConfig config) {//
-        allowedDomain = config.getInitParameter("allowedDomain");
-        InitialContext ic = null;
-        try {
-            ic = new InitialContext();
-        } catch (NamingException e) {
-            e.printStackTrace();
-        }
-        //            SessionContext sctxLookup =
-//                    (SessionContext) ic.lookup("java:comp/EJBContext");
+    public void init(FilterConfig config) {
     }
 
     @Override
