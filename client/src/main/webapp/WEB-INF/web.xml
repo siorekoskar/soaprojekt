@@ -8,7 +8,7 @@
         <web-resource-collection>
             <web-resource-name>HtmlAuth</web-resource-name>
             <description>zasady bezpieczeństwa aplikacji</description>
-            <url-pattern>/*</url-pattern>
+            <url-pattern>/secure/*</url-pattern>
             <http-method>GET</http-method>
             <http-method>POST</http-method>
         </web-resource-collection>
@@ -18,8 +18,13 @@
         </auth-constraint>
     </security-constraint>
     <login-config>
-        <auth-method>BASIC</auth-method>
-        <realm-name>file</realm-name>
+        <auth-method>FORM</auth-method>
+        <realm-name>mysqldomain</realm-name>
+        <form-login-config>
+            <form-login-page>/unsecure/login.xhtml</form-login-page>
+            <form-error-page>/unsecure/login.xhtml</form-error-page>
+        </form-login-config>
+
     </login-config>
     <security-role>
         <role-name>Administrator</role-name>
@@ -39,8 +44,6 @@
 
     <filter-mapping>
         <filter-name>LogFilter</filter-name>
-        <!--<url-pattern>/add.xhtml</url-pattern>-->
-        <url-pattern>/*</url-pattern>
-        <!--<url-pattern>/user.xhtml</url-pattern>-->
+        <url-pattern>/secure/*</url-pattern>
     </filter-mapping>
 </web-app>

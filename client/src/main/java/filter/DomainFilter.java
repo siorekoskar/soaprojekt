@@ -5,6 +5,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,6 +31,9 @@ public class DomainFilter implements Filter {
                          FilterChain chain) throws java.io.IOException, ServletException {
         Principal userPrincipal = ((HttpServletRequest) req).getUserPrincipal();
         String jsessionId = ((HttpServletRequest) req).getSession().getId();
+        if(userPrincipal == null){
+            ((HttpServletResponse)resp).sendRedirect("/login.xhtml");
+        }
         String name = userPrincipal.getName();
         String s = jsessions.get(name);
         if (s == null) {
@@ -38,7 +42,9 @@ public class DomainFilter implements Filter {
         } else if (s.equals(jsessionId)) {
             chain.doFilter(req, resp);
         } else {
-            resp.getWriter().print("ktos juz jest zalogowany");
+            ((HttpServletRequest)req).getSession().invalidate();
+            ((HttpServletResponse)resp).sendRedirect(((HttpServletRequest)req).getContextPath()
+                    + "/unsecure/login.xhtml?logged=juz%20jest%20zalogowany");
         }
     }
 
