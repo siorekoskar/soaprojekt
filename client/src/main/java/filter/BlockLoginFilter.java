@@ -5,9 +5,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 public class BlockLoginFilter implements Filter {
+
     @Override
     public void init(FilterConfig filterConfig) {
-
     }
 
     @Override
@@ -22,6 +22,5 @@ public class BlockLoginFilter implements Filter {
 
     @Override
     public void destroy() {
-
     }
 }

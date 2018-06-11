@@ -1,5 +1,6 @@
 package filter;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,14 +12,12 @@ public class LogoutServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String name = request.getUserPrincipal().getName();
         DomainFilter.getJsessions().remove(name);
+        request.logout();
         request.getSession().invalidate();
         response.sendRedirect(request.getContextPath()
-                + "/login.xhtml");
-
+                + "/secure/index.xhtml");
     }
-
 }

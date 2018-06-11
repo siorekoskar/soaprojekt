@@ -1,20 +1,14 @@
 package filter;
 
-import javax.ejb.SessionContext;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
 public class DomainFilter implements Filter {
-
-    private String allowedDomain;
-
-    private SessionContext context;
 
     public static Map<String, String> getJsessions() {
         return jsessions;
@@ -27,12 +21,14 @@ public class DomainFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest req, ServletResponse resp,
-                         FilterChain chain) throws java.io.IOException, ServletException {
-        Principal userPrincipal = ((HttpServletRequest) req).getUserPrincipal();
-        String jsessionId = ((HttpServletRequest) req).getSession().getId();
-        if(userPrincipal == null){
-            ((HttpServletResponse)resp).sendRedirect("/client/login.xhtml");
+    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest httpRequest = (HttpServletRequest) req;
+        HttpServletResponse httpResponse = (HttpServletResponse) resp;
+
+        Principal userPrincipal = httpRequest.getUserPrincipal();
+        String jsessionId = httpRequest.getSession().getId();
+        if (userPrincipal == null) {
+            httpResponse.sendRedirect("/client/login.xhtml");
             return;
         }
         String name = userPrincipal.getName();
@@ -43,8 +39,8 @@ public class DomainFilter implements Filter {
         } else if (s.equals(jsessionId)) {
             chain.doFilter(req, resp);
         } else {
-            ((HttpServletRequest)req).getSession().invalidate();
-            ((HttpServletResponse)resp).sendRedirect(((HttpServletRequest)req).getContextPath()
+            httpRequest.getSession().invalidate();
+            httpResponse.sendRedirect(httpRequest.getContextPath()
                     + "/login.xhtml?logged=juz%20jest%20zalogowany");
         }
     }
@@ -52,5 +48,4 @@ public class DomainFilter implements Filter {
     @Override
     public void destroy() {
     }
-
 }

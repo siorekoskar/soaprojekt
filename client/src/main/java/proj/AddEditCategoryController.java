@@ -17,8 +17,8 @@ import java.util.List;
 @Named
 @ConversationScoped
 public class AddEditCategoryController implements Serializable {
-    private static final long serialVersionUID = 7428840868353047821L;
 
+    private static final long serialVersionUID = 7428840868353047821L;
     private Forest currentCategory;
 
     @EJB(mappedName = "java:global/server/Catalogue!proj.RemoteCatalogue")

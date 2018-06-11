@@ -12,9 +12,10 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
-@SessionScoped
 @Named
+@SessionScoped
 public class UserController implements Serializable {
+
     private static final long serialVersionUID = -4917832544251485340L;
 
     @EJB(mappedName = "java:global/server/Catalogue!proj.RemoteCatalogue")
@@ -48,9 +49,9 @@ public class UserController implements Serializable {
     }
 
     public boolean changePassword() {
-        boolean b = remoteCatalogue.changePassword(userDetails);
+        boolean isPasswordChanged = remoteCatalogue.changePassword(userDetails);
         userDetails = new UserDetails();
-        return b;
+        return isPasswordChanged;
     }
 
     public boolean canEdit(String username){
