@@ -4,10 +4,19 @@ import entity.CategoryType;
 import entity.Elf;
 import entity.Forest;
 import entity.Role;
+import event.ElementEvent;
+import jdk.nashorn.internal.objects.annotations.Getter;
+import org.primefaces.push.EventBus;
+import org.primefaces.push.EventBusFactory;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.event.Event;
+import javax.enterprise.event.Observes;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
@@ -22,8 +31,20 @@ public class CatalogBean implements Serializable {
     @EJB(mappedName = "java:global/server/Catalogue!proj.RemoteCatalogue")
     private RemoteCatalogue remoteCatalogue;
 
+    private List<Forest> categories;
+    private List<Elf> elements;
+
     public List<Forest> getCategories() {
-        return remoteCatalogue.getForests();
+        return categories;
+    }
+
+    @Inject
+    private Event<ElementEvent> elementEvent;
+
+    @PostConstruct
+    private void init() {
+        categories = remoteCatalogue.getForests();
+        elements = remoteCatalogue.getElves();
     }
 
     public List<Forest> getUserCategories() {
@@ -41,15 +62,17 @@ public class CatalogBean implements Serializable {
     }
 
     public List<Elf> getElements() {
-        return remoteCatalogue.getElves();
+        return elements;
     }
 
     public void removeElement(Elf elf) {
         remoteCatalogue.removeElf(elf);
+        fireEvent();
     }
 
     public void removeCategory(Forest forest) {
         remoteCatalogue.removeForest(forest);
+        fireEvent();
     }
 
     public List<Elf> bestElements() {
@@ -60,9 +83,15 @@ public class CatalogBean implements Serializable {
                 .collect(Collectors.toList());
     }
 
-//    public void updateBestElementFromEachCategoryList(@Observes ElementEvent elementEvent) {
-//        bestElementFromEachCategoryList = categoryService.getBestElementFromEachCategory();
-//        EventBus eventBus = EventBusFactory.getDefault().eventBus();
-//        eventBus.publish("/notify", new FacesMessage(bestElementFromEachCategoryList.toString()));
-//    }
+    public void updateAllElements(@Observes ElementEvent elementEvent) {
+        categories = remoteCatalogue.getForests();
+        elements = remoteCatalogue.getElves();
+        EventBus eventBus = EventBusFactory.getDefault().eventBus();
+        eventBus.publish("/reload", new FacesMessage(categories.toString()));
+    }
+
+    private void fireEvent() {
+        ElementEvent event = new ElementEvent();
+        elementEvent.fire(event);
+    }
 }
