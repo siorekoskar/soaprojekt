@@ -1,7 +1,8 @@
-package com.controller;
+package rest;
 
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
+import proj.RemoteCatalogue;
+
+import javax.ejb.EJB;
 import javax.transaction.Transactional;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -10,18 +11,15 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("/contr")
-public class Controller {
+public class RestController {
 
-    @Inject
-    private EntityManager em;
+    @EJB(mappedName = "java:global/server/Catalogue!proj.RemoteCatalogue")
+    private RemoteCatalogue remoteCatalogue;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
     public Response insert() {
-//        Forest entity = new Forest(17);
-//        em.persist(new Elf("erni", 1));
-//        return Response.ok(entity).build();
-        return null;
+        return Response.ok(remoteCatalogue.getForests()).build();
     }
 }
