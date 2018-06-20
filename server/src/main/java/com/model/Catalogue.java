@@ -2,6 +2,8 @@ package com.model;
 
 import entity.*;
 import org.apache.commons.codec.digest.DigestUtils;
+import proj.CategoryTypeDto;
+import proj.ElementTypeDto;
 import proj.RemoteCatalogue;
 import proj.UserDetails;
 
@@ -30,6 +32,16 @@ public class Catalogue implements RemoteCatalogue {
     @Override
     public List<ElementType> getElementTypes() {
         return entityDao.getElementTypes();
+    }
+
+    @Override
+    public void sendCategoryType(CategoryTypeDto categoryTypeDto) {
+        entityDao.addCategoryType(CategoryTypeDto.categoryTypeBuilder(categoryTypeDto));
+    }
+
+    @Override
+    public void sendElementType(ElementTypeDto elementTypeDto) {
+        entityDao.addElementType(ElementTypeDto.ElementTypeBuilder(elementTypeDto));
     }
 
     @Override

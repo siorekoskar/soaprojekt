@@ -40,6 +40,11 @@ public class EntityDao {
     }
 
     @Transactional
+    public void addCategoryType(CategoryType categoryType) {
+        entityManager.persist(categoryType);
+    }
+
+    @Transactional
     public void addElement(Elf element) {
         if (element.getElfId() != null) {
             entityManager.createNativeQuery("UPDATE elves e SET " +
@@ -102,5 +107,10 @@ public class EntityDao {
     public List<ElementType> getElementTypes() {
         return entityManager.createQuery("SELECT et FROM ElementType et", ElementType.class)
                 .getResultList();
+    }
+
+    @Transactional
+    public void addElementType(ElementType elementType) {
+        entityManager.persist(elementType);
     }
 }

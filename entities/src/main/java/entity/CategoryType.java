@@ -16,6 +16,7 @@ public class CategoryType implements Serializable {
 
     @Id
     @Column(name = "CATEGORY_TYPE_ID", nullable = false)
+    @GeneratedValue
     public Integer getCategoryTypeId() {
         return categoryTypeId;
     }

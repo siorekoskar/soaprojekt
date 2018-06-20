@@ -18,6 +18,7 @@ public class ElementType implements Serializable {
 
     @Id
     @Column(name = "ELEMENT_TYPE_ID", nullable = false)
+    @GeneratedValue
     public Integer getElementTypeId() {
         return elementTypeId;
     }
