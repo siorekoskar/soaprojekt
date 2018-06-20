@@ -25,23 +25,9 @@
             <p:selectOneMenu value="#{addEditElementController.currentElement.elementTypeByElementTypeId}"
                              converter="#{elementTypeConverter}">
                 <f:selectItems value="#{addEditElementController.elementTypes}"/>
-                <p:ajax event="itemSelect" execute="@this" update="editor"/>
             </p:selectOneMenu><br/>
-
-            <h:panelGroup id="editor">
-                <p:outputLabel value="#{addEditElementController.currentElement.elementTypeByElementTypeId.nameLabel}:"/>
-                <p:inputText value="#{addEditElementController.currentElement.name}" required="true"/><br/>
-                <p:outputLabel value="#{addEditElementController.currentElement.elementTypeByElementTypeId.powerLabel}:"/>
-                <p:inputText value="#{addEditElementController.currentElement.arrowType}"/><br/>
-                <p:outputLabel value="#{addEditElementController.currentElement.elementTypeByElementTypeId.intLabel1}:"/>
-                <p:inputText value="#{addEditElementController.currentElement.arrowsCount}"/><br/>
-                <p:outputLabel value="#{addEditElementController.currentElement.elementTypeByElementTypeId.intLabel2}:"/>
-                <p:inputText value="#{addEditElementController.currentElement.power}"/><br/>
-            </h:panelGroup>
-
             <br/>
-            <p:commandButton value="SUBMIT" action="#{addEditElementController.sendElement}">
-                <f:ajax execute="@form" process="@form"/>
+            <p:commandButton value="SUBMIT" action="#{addEditElementController.goToNextPage}">
             </p:commandButton>
 
             </h:panelGroup>

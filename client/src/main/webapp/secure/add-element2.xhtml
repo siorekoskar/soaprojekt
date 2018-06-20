@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <link href=" https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet"/>
+</h:head>
+<f:view>
+    <h:body>
+        <h:form>
+        <h:outputLabel value="#{addEditElementController.currentElement.name}"/>
+            <h:panelGroup id="editor">
+                <p:outputLabel value="#{addEditElementController.currentElement.elementTypeByElementTypeId.nameLabel}:"/>
+                <p:inputText value="#{addEditElementController.currentElement.name}" required="true"/><br/>
+                <p:outputLabel value="#{addEditElementController.currentElement.elementTypeByElementTypeId.powerLabel}:"/>
+                <p:inputText value="#{addEditElementController.currentElement.arrowType}"/><br/>
+                <p:outputLabel value="#{addEditElementController.currentElement.elementTypeByElementTypeId.intLabel1}:"/>
+                <p:inputText value="#{addEditElementController.currentElement.arrowsCount}"/><br/>
+                <p:outputLabel value="#{addEditElementController.currentElement.elementTypeByElementTypeId.intLabel2}:"/>
+                <p:inputText value="#{addEditElementController.currentElement.power}"/><br/>
+            </h:panelGroup>
+        <p:commandButton value="SUBMIT" action="#{addEditElementController.sendElement}">
+            <f:ajax execute="@form" process="@form"/>
+        </p:commandButton>
+    </h:form>
+
+    <h:link value="index" outcome="index.xhtml"/><br/>
+        <h:link value="user" outcome="user.xhtml"/><br/>
+    </h:body>
+</f:view>
+<form action="${pageContext.request.contextPath}/client/logout">
+    <input type="submit" name="LOGOUT" title="LOGOUT"/>
+</form>
+</html>
