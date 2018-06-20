@@ -6,7 +6,9 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html">
 
-<h:head></h:head>
+<h:head>
+    <link href=" https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet"/>
+</h:head>
 <f:view>
     <h:body>
 
@@ -19,9 +21,12 @@
                             <ui:repeat value="#{categoryType.forestsByCategoryTypeId}" var="category">
                                 <li>#{category.categoryTypeByCategoryTypeId.categoryName}, #{category.usersByUserId}, #{category.height}
                                     <h:commandButton value="REMOVE" action="#{catalogBean.removeCategory(category)}"
+                                                     styleClass="btn btn-primary ml-2 mt-1 mb-3"
                                                      rendered="#{userController.canEdit(category.usersByUserId.login)}"/>
                                     <h:commandButton value="EDIT" action="#{addEditCategoryController.goToEdit(category)}"
-                                                     rendered="#{userController.canEdit(category.usersByUserId.login)}"/>
+                                                     rendered="#{userController.canEdit(category.usersByUserId.login)}"
+                                                     styleClass="btn btn-primary ml-2 mt-1 mb-3"
+                                    />
                                     <ul>
                                         <ui:repeat value="#{category.elvesByForestId}" var="element">
                                             <li>
@@ -31,9 +36,12 @@
                                                 #{element.elementTypeByElementTypeId.intLabel2}: #{element.arrowType}
                                                 <h:commandButton value="REMOVE" action="#{catalogBean.removeElement(element)}"
                                                                  rendered="#{userController.canEdit(category.usersByUserId.login)}"
+                                                                 styleClass="btn btn-primary ml-2 mt-1 mb-3"
                                                 />
                                                 <h:commandButton value="EDIT" action="#{addEditElementController.goToEdit(element)}"
-                                                                 rendered="#{userController.canEdit(category.usersByUserId.login)}">
+                                                                 rendered="#{userController.canEdit(category.usersByUserId.login)}"
+                                                                 styleClass="btn btn-primary ml-2 mt-1 mb-3"
+                                                >
                                                 </h:commandButton>
                                             </li>
                                         </ui:repeat>
