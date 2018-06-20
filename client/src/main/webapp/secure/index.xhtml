@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 
 <h:head>
     <link href=" https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet"/>
@@ -12,7 +13,7 @@
 <f:view>
     <h:body>
 
-        <h:form>
+        <h:form id="categories">
             <ul>
                 <ui:repeat value="#{catalogBean.categoryTypes}" var="categoryType">
                     <li>#{categoryType.categoryName}, #{categoryType.categoryPropertyLabel}
@@ -53,6 +54,16 @@
                 </ui:repeat>
             </ul>
         </h:form>
+
+        <h:panelGroup id="most-powerful">
+            <p:outputLabel value="BEST ELEMENTS!"/>
+            <ul>
+                <ui:repeat value="#{catalogBean.bestElements()}" var="element">
+                    <li>#{element}</li>
+                </ui:repeat>
+            </ul>
+        </h:panelGroup>
+
     </h:body>
 
 </f:view>

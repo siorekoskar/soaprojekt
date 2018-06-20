@@ -51,4 +51,18 @@ public class CatalogBean implements Serializable {
     public void removeCategory(Forest forest) {
         remoteCatalogue.removeForest(forest);
     }
+
+    public List<Elf> bestElements() {
+        return remoteCatalogue.getForests().stream()
+                .map(Forest::getElvesByForestId)
+                .map(elves -> elves.stream()
+                        .reduce((a, b) -> a.getPower() > b.getPower() ? a : b).get())
+                .collect(Collectors.toList());
+    }
+
+//    public void updateBestElementFromEachCategoryList(@Observes ElementEvent elementEvent) {
+//        bestElementFromEachCategoryList = categoryService.getBestElementFromEachCategory();
+//        EventBus eventBus = EventBusFactory.getDefault().eventBus();
+//        eventBus.publish("/notify", new FacesMessage(bestElementFromEachCategoryList.toString()));
+//    }
 }

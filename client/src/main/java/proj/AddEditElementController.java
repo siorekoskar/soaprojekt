@@ -2,11 +2,13 @@ package proj;
 
 import entity.ElementType;
 import entity.Elf;
+import event.ElementEvent;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -24,6 +26,9 @@ public class AddEditElementController implements Serializable {
 
     @Inject
     private Conversation conversation;
+
+    @Inject
+    private Event<ElementEvent> elementEvent;
 
     public AddEditElementController() {
         currentElement = new Elf();
@@ -47,6 +52,7 @@ public class AddEditElementController implements Serializable {
     public void sendElement() {
         remoteCatalogue.addElf(currentElement);
         currentElement = new Elf();
+//        fireEvent();
     }
 
     public String goToNextPage(){
@@ -60,6 +66,11 @@ public class AddEditElementController implements Serializable {
     public String goToEdit(Elf element) {
         this.currentElement = element;
         return "/secure/add-element.xhtml?cdi=" + conversation.getId();
+    }
+
+    private void fireEvent() {
+        ElementEvent event = new ElementEvent();
+        elementEvent.fire(event);
     }
 }
 
