@@ -6,6 +6,7 @@ import entity.Forest;
 import entity.Role;
 import event.ElementEvent;
 import jdk.nashorn.internal.objects.annotations.Getter;
+import jms.ReceiverController;
 import org.primefaces.push.EventBus;
 import org.primefaces.push.EventBusFactory;
 
@@ -31,6 +32,11 @@ public class CatalogBean implements Serializable {
     @EJB(mappedName = "java:global/server/Catalogue!proj.RemoteCatalogue")
     private RemoteCatalogue remoteCatalogue;
 
+    @Inject
+    private ReceiverController receiverController;
+    @Inject
+    private Event<ElementEvent> elementEvent;
+
     private List<Forest> categories;
     private List<Elf> elements;
 
@@ -38,11 +44,9 @@ public class CatalogBean implements Serializable {
         return categories;
     }
 
-    @Inject
-    private Event<ElementEvent> elementEvent;
-
     @PostConstruct
     private void init() {
+        receiverController.createReceiver();
         categories = remoteCatalogue.getForests();
         elements = remoteCatalogue.getElves();
     }
@@ -76,11 +80,15 @@ public class CatalogBean implements Serializable {
     }
 
     public List<Elf> bestElements() {
-        return remoteCatalogue.getForests().stream()
-                .map(Forest::getElvesByForestId)
-                .map(elves -> elves.stream()
-                        .reduce((a, b) -> a.getPower() > b.getPower() ? a : b).get())
-                .collect(Collectors.toList());
+        //todo fix
+        return null;
+//        return remoteCatalogue.getForests().stream()
+//                .map(Forest::getElvesByForestId)
+//                .map(elves -> elves.stream()
+//                        .reduce((a, b) -> a.getPower() > b.getPower() ? a : b).get());
+
+
+//                .collect(Collectors.toList());
     }
 
     public void updateAllElements(@Observes ElementEvent elementEvent) {

@@ -1,5 +1,7 @@
 package com.model;
 
+import com.jms.JMSService;
+import com.jms.MessageController;
 import entity.*;
 import org.apache.commons.codec.digest.DigestUtils;
 import proj.CategoryTypeDto;
@@ -18,6 +20,9 @@ public class Catalogue implements RemoteCatalogue {
 
     @Inject
     private EntityDao entityDao;
+
+    @Inject
+    private JMSService jmsService;
 
     @Override
     public List<Forest> getForests() {
@@ -56,6 +61,7 @@ public class Catalogue implements RemoteCatalogue {
 
     @Override
     public void addElf(Elf elf) {
+        jmsService.sendMessageToTopic("ALL", "siema");
         entityDao.addElement(elf);
     }
 
