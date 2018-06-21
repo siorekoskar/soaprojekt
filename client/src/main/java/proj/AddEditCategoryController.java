@@ -51,7 +51,7 @@ public class AddEditCategoryController implements Serializable {
         this.currentCategory = currentCategory;
     }
 
-    public void sendCategory() {
+    public String sendCategory() {
         User remoteUser = remoteCatalogue.getUsers().stream()
                 .filter(user -> user.getLogin().equals(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser()))
                 .findFirst().get();
@@ -59,6 +59,8 @@ public class AddEditCategoryController implements Serializable {
         remoteCatalogue.addForest(currentCategory);
         this.currentCategory = new Forest();
         fireEvent();
+        conversation.end();
+        return "/secure/index.xhtml";
     }
 
     public List<CategoryType> getCategoryTypes() {

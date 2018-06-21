@@ -5,7 +5,6 @@ import entity.Elf;
 import entity.Forest;
 import entity.Role;
 import event.ElementEvent;
-import jdk.nashorn.internal.objects.annotations.Getter;
 import jms.ReceiverController;
 import org.primefaces.push.EventBus;
 import org.primefaces.push.EventBusFactory;
@@ -20,6 +19,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -80,15 +80,29 @@ public class CatalogBean implements Serializable {
     }
 
     public List<Elf> bestElements() {
-        //todo fix
-        return null;
-//        return remoteCatalogue.getForests().stream()
-//                .map(Forest::getElvesByForestId)
-//                .map(elves -> elves.stream()
-//                        .reduce((a, b) -> a.getPower() > b.getPower() ? a : b).get());
+        List<Forest> categories = remoteCatalogue.getForests();
+        List<Elf> bestElements = new ArrayList<>();
+        List<List<Elf>> elements = categories.stream()
+                .map(Forest::getElvesByForestId)
+                .collect(Collectors.toList());
 
+        if(elements == null){
+            return bestElements;
+        }
 
-//                .collect(Collectors.toList());
+        for (List<Elf> element : elements) {
+            if(element.size() == 0){
+                return bestElements;
+            }
+            Elf bestElement = element.get(0);
+            for (Elf element1 : element) {
+                if(element1.getPower() > bestElement.getPower()){
+                    bestElement = element1;
+                }
+            }
+            bestElements.add(bestElement);
+        }
+        return bestElements;
     }
 
     public void updateAllElements(@Observes ElementEvent elementEvent) {
