@@ -1,7 +1,12 @@
 package entity;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ElementDto implements Serializable {
     private static final long serialVersionUID = -574075082743912950L;
 

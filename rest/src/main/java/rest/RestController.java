@@ -5,6 +5,7 @@ import proj.RemoteCatalogue;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
@@ -38,7 +39,7 @@ public class RestController {
 
     @GET
     @Path("/{categoryId}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getSpecificCategories(@PathParam("categoryId") Integer categoryId) {
         List<Forest> categories = remoteCatalogue.getForests();
 
@@ -46,13 +47,17 @@ public class RestController {
                 .filter(category -> category.getForestId().equals(categoryId))
                 .collect(Collectors.toList());
 
-        if(categories.size() == 0){
+        if (categories.size() == 0) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
         List<CategoryDto> categoryDtos = new ArrayList<>();
         categories.forEach(category -> categoryDtos.add(CategoryDto.builder(category)));
-        return Response.ok(categoryDtos).build();
+
+        GenericEntity<List<CategoryDto>> genericEntity = new GenericEntity<List<CategoryDto>>(categoryDtos) {
+        };
+
+        return Response.ok(genericEntity).build();
     }
 
     @POST
@@ -68,7 +73,7 @@ public class RestController {
                 .filter(actualElemType -> actualElemType.getElementTypeId().equals(elementDto.getElementTypeId()))
                 .findFirst();
 
-        if(category.isPresent() && categoryType.isPresent()){
+        if (category.isPresent() && categoryType.isPresent()) {
             element.setForestsByForestId(category.get());
             element.setElementTypeByElementTypeId(categoryType.get());
         } else {
