@@ -2,9 +2,14 @@ package rest;
 
 import entity.*;
 import proj.RemoteCatalogue;
+import translate.Translator;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -12,6 +17,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -20,6 +26,9 @@ public class RestController {
 
     @EJB(mappedName = "java:global/server/Catalogue!proj.RemoteCatalogue")
     private RemoteCatalogue remoteCatalogue;
+
+    @Inject
+    private Translator translator;
 
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
@@ -45,7 +54,7 @@ public class RestController {
     @GET
     @Path("/{categoryId}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response getSpecificCategories(@PathParam("categoryId") Integer categoryId) {
+    public Response getSpecificCategories(@PathParam("categoryId") Integer categoryId, @Context HttpServletRequest request) {
         List<Forest> categories = remoteCatalogue.getForests();
 
         categories = categories.stream()
@@ -61,6 +70,12 @@ public class RestController {
 
         GenericEntity<List<CategoryDto>> genericEntity = new GenericEntity<List<CategoryDto>>(categoryDtos) {
         };
+
+        Locale locale = request.getLocale();
+
+        if(locale.equals(Locale.US)){
+            categoryDtos.forEach(translator::translate);
+        }
 
         return Response.ok(genericEntity).build();
     }
