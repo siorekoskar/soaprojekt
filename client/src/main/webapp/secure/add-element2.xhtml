@@ -17,11 +17,11 @@
                 <p:outputLabel value="#{addEditElementController.currentElement.elementTypeByElementTypeId.nameLabel}:"/>
                 <p:inputText value="#{addEditElementController.currentElement.name}" required="true"/><br/>
                 <p:outputLabel value="#{addEditElementController.currentElement.elementTypeByElementTypeId.powerLabel}:"/>
-                <p:inputText value="#{addEditElementController.currentElement.arrowType}"/><br/>
+                <p:inputText value="#{addEditElementController.currentElement.power}" required="true"/><br/>
                 <p:outputLabel value="#{addEditElementController.currentElement.elementTypeByElementTypeId.intLabel1}:"/>
                 <p:inputText value="#{addEditElementController.currentElement.arrowsCount}"/><br/>
                 <p:outputLabel value="#{addEditElementController.currentElement.elementTypeByElementTypeId.intLabel2}:"/>
-                <p:inputText value="#{addEditElementController.currentElement.power}"/><br/>
+                <p:inputText value="#{addEditElementController.currentElement.arrowType}"/><br/>
             </h:panelGroup>
         <p:commandButton value="SUBMIT" action="#{addEditElementController.sendElement}">
             <f:ajax execute="@form" process="@form"/>

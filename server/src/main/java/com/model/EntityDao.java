@@ -28,7 +28,7 @@ public class EntityDao {
 
     @Transactional
     public void addCategory(Forest category) {
-        if (category.getForestId() != null) {
+        if (category.getForestId() != null && category.getForestId() != 0) {
             entityManager.createNativeQuery("UPDATE forests f SET f.CATEGORY_TYPE_ID = ?, f.HEIGHT = ? WHERE f.FOREST_ID = ?")
                     .setParameter(1, category.getCategoryTypeByCategoryTypeId().getCategoryTypeId())
                     .setParameter(2, category.getHeight())

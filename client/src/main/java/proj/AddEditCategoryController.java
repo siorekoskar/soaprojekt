@@ -3,11 +3,13 @@ package proj;
 import entity.CategoryType;
 import entity.Forest;
 import entity.User;
+import event.ElementEvent;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.event.Event;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -26,6 +28,9 @@ public class AddEditCategoryController implements Serializable {
 
     @Inject
     private Conversation conversation;
+
+    @Inject
+    private Event<ElementEvent> elementEvent;
 
     @PostConstruct
     public void init() {
@@ -53,6 +58,7 @@ public class AddEditCategoryController implements Serializable {
         currentCategory.setUsersByUserId(remoteUser);
         remoteCatalogue.addForest(currentCategory);
         this.currentCategory = new Forest();
+        fireEvent();
     }
 
     public List<CategoryType> getCategoryTypes() {
@@ -62,5 +68,10 @@ public class AddEditCategoryController implements Serializable {
     public String goToEdit(Forest category) {
         this.currentCategory = category;
         return "/secure/add-category.xhtml?cdi=" + conversation.getId();
+    }
+
+    private void fireEvent() {
+        ElementEvent event = new ElementEvent();
+        elementEvent.fire(event);
     }
 }

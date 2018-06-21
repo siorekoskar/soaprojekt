@@ -1,5 +1,6 @@
 package com.model;
 
+import com.interceptor.NewElement;
 import com.jms.JMSService;
 import com.jms.MessageController;
 import entity.*;
@@ -60,8 +61,9 @@ public class Catalogue implements RemoteCatalogue {
     }
 
     @Override
+    @NewElement
     public void addElf(Elf elf) {
-        jmsService.sendMessageToTopic("ALL", "siema");
+//        jmsService.sendMessageToTopic("ALL", "siema");
         entityDao.addElement(elf);
     }
 

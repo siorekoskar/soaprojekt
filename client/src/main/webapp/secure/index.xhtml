@@ -13,7 +13,7 @@
 <f:view>
     <h:body>
 
-        <p:growl widgetVar="growl" showDetail="true" />
+        <p:growl widgetVar="growl" showDetail="true"/>
 
         <h:form id="all-categories-group">
             <h:panelGroup id="all-categories">
@@ -23,22 +23,18 @@
                             <ul>
                                 KATEGORIE:
                                 <ui:repeat value="#{categoryType.forestsByCategoryTypeId}" var="category">
-                                    <li>#{category.categoryTypeByCategoryTypeId.categoryName}, #{category.usersByUserId}, #{category.height}
+                                    <li>
                                         <h:commandButton value="REMOVE" action="#{catalogBean.removeCategory(category)}"
                                                          styleClass="btn btn-primary ml-2 mt-1 mb-3"
                                                          rendered="#{userController.canEdit(category.usersByUserId.login)}"/>
                                         <h:commandButton value="EDIT"
                                                          action="#{addEditCategoryController.goToEdit(category)}"
                                                          rendered="#{userController.canEdit(category.usersByUserId.login)}"
-                                                         styleClass="btn btn-primary ml-2 mt-1 mb-3"
-                                        />
+                                                         styleClass="btn btn-primary ml-2 mt-1 mb-3"/>
+                                        #{category.categoryTypeByCategoryTypeId.categoryName}, #{category.usersByUserId}, #{category.height}
                                         <ul>
                                             <ui:repeat value="#{category.elvesByForestId}" var="element">
                                                 <li>
-                                                    #{element.elementTypeByElementTypeId.nameLabel}: #{element.name},
-                                                    #{element.elementTypeByElementTypeId.powerLabel}: #{element.power},
-                                                    #{element.elementTypeByElementTypeId.intLabel1}: #{element.arrowsCount},
-                                                    #{element.elementTypeByElementTypeId.intLabel2}: #{element.arrowType}
                                                     <h:commandButton value="REMOVE"
                                                                      action="#{catalogBean.removeElement(element)}"
                                                                      rendered="#{userController.canEdit(category.usersByUserId.login)}"
@@ -50,6 +46,10 @@
                                                                      styleClass="btn btn-primary ml-2 mt-1 mb-3"
                                                     >
                                                     </h:commandButton>
+                                                    #{element.elementTypeByElementTypeId.nameLabel}: #{element.name},
+                                                    #{element.elementTypeByElementTypeId.powerLabel}: #{element.power},
+                                                    #{element.elementTypeByElementTypeId.intLabel1}: #{element.arrowsCount},
+                                                    #{element.elementTypeByElementTypeId.intLabel2}: #{element.arrowType}
                                                 </li>
                                             </ui:repeat>
                                         </ul>
@@ -78,19 +78,21 @@
             }
         </script>
 
-        <p:socket onMessage="handleMessage" channel="/reload" >
+        <p:socket onMessage="handleMessage" channel="/reload">
             <p:ajax event="message" update="@all"/>
         </p:socket>
+
+
+        <h:link value="add category" outcome="add-category.xhtml"/><br/>
+        <h:link value="add element" outcome="add-element.xhtml"/><br/>
+        <h:link value="user" outcome="user.xhtml"/><br/>
+
+        <form action="${pageContext.request.contextPath}/client/logout">
+            <input type="submit" name="LOGOUT" title="LOGOUT"/>
+        </form>
+
 
     </h:body>
 
 </f:view>
-<h:link value="add category" outcome="add-category.xhtml"/><br/>
-<h:link value="add element" outcome="add-element.xhtml"/><br/>
-<h:link value="user" outcome="user.xhtml"/><br/>
-
-<form action="${pageContext.request.contextPath}/client/logout">
-    <input type="submit" name="LOGOUT" title="LOGOUT"/>
-</form>
-
 </html>

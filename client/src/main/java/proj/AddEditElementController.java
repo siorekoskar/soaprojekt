@@ -49,10 +49,12 @@ public class AddEditElementController implements Serializable {
         this.currentElement = currentElement;
     }
 
-    public void sendElement() {
+    public String sendElement() {
         remoteCatalogue.addElf(currentElement);
         currentElement = new Elf();
         fireEvent();
+        conversation.end();
+        return "/secure/index.xhtml";
     }
 
     public String goToNextPage() {
