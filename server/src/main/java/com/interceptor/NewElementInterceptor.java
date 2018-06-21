@@ -26,6 +26,10 @@ public class NewElementInterceptor {
         Elf element = (Elf) parameters[0];
         List<Elf> elements = element.getElementTypeByElementTypeId().getElvesByElementTypeId();
 
+        if(element.getElfId() != null){
+            return invocationContext.proceed();
+        }
+
         Integer maxPowerFromCategory = elements.stream()
                 .filter(actualElement -> actualElement.getPower() != null)
                 .max(comparingInt(Elf::getPower))
