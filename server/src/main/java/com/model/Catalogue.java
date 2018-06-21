@@ -2,7 +2,6 @@ package com.model;
 
 import com.interceptor.NewElement;
 import com.jms.JMSService;
-import com.jms.MessageController;
 import entity.*;
 import org.apache.commons.codec.digest.DigestUtils;
 import proj.CategoryTypeDto;
@@ -14,6 +13,7 @@ import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Random;
 
 @Remote(RemoteCatalogue.class)
 @Stateless
@@ -38,6 +38,16 @@ public class Catalogue implements RemoteCatalogue {
     @Override
     public List<ElementType> getElementTypes() {
         return entityDao.getElementTypes();
+    }
+
+    @Override
+    public Integer updateElement(Elf element) {
+        int newMaybePowerLevel = new Random().nextInt(2);
+        int multiplier = new Random().nextBoolean() ? 1 : -1;
+        int newPowerLevel = newMaybePowerLevel * multiplier;
+        element.setPower(element.getPower() + newPowerLevel);
+        entityDao.addElement(element);
+        return newPowerLevel;
     }
 
     @Override

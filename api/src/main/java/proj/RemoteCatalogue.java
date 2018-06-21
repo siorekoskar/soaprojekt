@@ -16,6 +16,7 @@ public interface RemoteCatalogue {
     boolean changePassword(UserDetails userDetails);
     List<CategoryType> getCategoryTypes();
     List<ElementType> getElementTypes();
+    Integer updateElement(Elf element);
 
     void sendCategoryType(CategoryTypeDto categoryTypeDto);
     void sendElementType(ElementTypeDto elementTypeDto);

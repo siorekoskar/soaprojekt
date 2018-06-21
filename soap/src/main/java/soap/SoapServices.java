@@ -15,4 +15,7 @@ public interface SoapServices {
 
     @WebMethod
     void addNewCharacters(ElementTypeDto elementTypeDto);
+
+    @WebMethod
+    Integer modifyParameterForElement(UpdateElementDto updateElementDto);
 }
