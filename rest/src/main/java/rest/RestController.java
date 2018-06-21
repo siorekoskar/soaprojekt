@@ -2,12 +2,12 @@ package rest;
 
 import entity.*;
 import proj.RemoteCatalogue;
+import service.RestService;
 import translate.Translator;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.GenericEntity;
@@ -15,11 +15,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Path("/catalog")
 public class RestController {
@@ -30,23 +27,17 @@ public class RestController {
     @Inject
     private Translator translator;
 
+    @Inject
+    private RestService restService;
+
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getCategories(@QueryParam("categoryId") Integer categoryId) {
-        List<Forest> categories = remoteCatalogue.getForests();
+        List<Forest> categories = restService.filterCategories(categoryId);
 
-        if (categoryId != null) {
-            categories = categories.stream()
-                    .filter(category -> category.getForestId().equals(categoryId))
-                    .collect(Collectors.toList());
-        }
+        List<CategoryDto> categoryDtos = restService.generateDtos(categories);
 
-        List<CategoryDto> categoryDtos = new ArrayList<>();
-        categories.forEach(category -> categoryDtos.add(CategoryDto.builder(category)));
-
-
-        GenericEntity<List<CategoryDto>> genericEntity = new GenericEntity<List<CategoryDto>>(categoryDtos) {
-        };
+        GenericEntity<List<CategoryDto>> genericEntity = restService.generateGenericCategories(categoryDtos);
 
         return Response.ok(genericEntity).build();
     }
@@ -55,27 +46,17 @@ public class RestController {
     @Path("/{categoryId}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getSpecificCategories(@PathParam("categoryId") Integer categoryId, @Context HttpServletRequest request) {
-        List<Forest> categories = remoteCatalogue.getForests();
-
-        categories = categories.stream()
-                .filter(category -> category.getForestId().equals(categoryId))
-                .collect(Collectors.toList());
+        List<Forest> categories = restService.filterCategories(categoryId);
 
         if (categories.size() == 0) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
-        List<CategoryDto> categoryDtos = new ArrayList<>();
-        categories.forEach(category -> categoryDtos.add(CategoryDto.builder(category)));
+        List<CategoryDto> categoryDtos = restService.generateDtos(categories);
 
-        GenericEntity<List<CategoryDto>> genericEntity = new GenericEntity<List<CategoryDto>>(categoryDtos) {
-        };
+        translator.translate(request.getLocale(), categoryDtos);
 
-        Locale locale = request.getLocale();
-
-        if(locale.equals(Locale.US)){
-            categoryDtos.forEach(translator::translate);
-        }
+        GenericEntity<List<CategoryDto>> genericEntity = restService.generateGenericCategories(categoryDtos);
 
         return Response.ok(genericEntity).build();
     }
@@ -85,13 +66,9 @@ public class RestController {
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response postElementToCategory(@PathParam("categoryId") Integer categoryId, ElementDto elementDto) throws URISyntaxException {
         Elf element = ElementDto.builder(elementDto);
-        Optional<Forest> category = remoteCatalogue.getForests().stream()
-                .filter(actualCategory -> actualCategory.getForestId().equals(categoryId))
-                .findFirst();
 
-        Optional<ElementType> categoryType = remoteCatalogue.getElementTypes().stream()
-                .filter(actualElemType -> actualElemType.getElementTypeId().equals(elementDto.getElementTypeId()))
-                .findFirst();
+        Optional<Forest> category = restService.findCategory(categoryId);
+        Optional<ElementType> categoryType = restService.findElementType(elementDto);
 
         if (category.isPresent() && categoryType.isPresent()) {
             element.setForestsByForestId(category.get());
