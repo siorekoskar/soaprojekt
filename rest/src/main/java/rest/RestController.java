@@ -22,7 +22,7 @@ public class RestController {
     private RemoteCatalogue remoteCatalogue;
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getCategories(@QueryParam("categoryId") Integer categoryId) {
         List<Forest> categories = remoteCatalogue.getForests();
 
@@ -34,7 +34,12 @@ public class RestController {
 
         List<CategoryDto> categoryDtos = new ArrayList<>();
         categories.forEach(category -> categoryDtos.add(CategoryDto.builder(category)));
-        return Response.ok(categoryDtos).build();
+
+
+        GenericEntity<List<CategoryDto>> genericEntity = new GenericEntity<List<CategoryDto>>(categoryDtos) {
+        };
+
+        return Response.ok(genericEntity).build();
     }
 
     @GET
