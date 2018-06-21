@@ -62,9 +62,9 @@ public class Catalogue implements RemoteCatalogue {
 
     @Override
     @NewElement
-    public void addElf(Elf elf) {
+    public int addElf(Elf elf) {
 //        jmsService.sendMessageToTopic("ALL", "siema");
-        entityDao.addElement(elf);
+        return entityDao.addElement(elf);
     }
 
     @Override

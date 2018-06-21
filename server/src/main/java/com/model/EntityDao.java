@@ -45,7 +45,7 @@ public class EntityDao {
     }
 
     @Transactional
-    public void addElement(Elf element) {
+    public Integer addElement(Elf element) {
         if (element.getElfId() != null) {
             entityManager.createNativeQuery("UPDATE elves e SET " +
                     "e.element_type_id = ?, " +
@@ -65,6 +65,7 @@ public class EntityDao {
         } else {
             entityManager.persist(element);
         }
+        return element.getElfId();
     }
 
     @Transactional

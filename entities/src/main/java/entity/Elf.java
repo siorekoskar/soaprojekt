@@ -1,5 +1,7 @@
 package entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -13,6 +15,7 @@ import java.util.Objects;
 public class Elf implements Serializable {
 
     private static final long serialVersionUID = 7773464502610941698L;
+
     private Integer elfId;
     private Integer arrowType;
     private Integer arrowsCount;

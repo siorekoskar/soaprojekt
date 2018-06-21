@@ -9,7 +9,7 @@ public interface RemoteCatalogue {
     List<Forest> getForests();
     List<Elf> getElves();
     void addForest(Forest category);
-    void addElf(Elf elfName);
+    int addElf(Elf elfName);
     void removeElf(Elf elf);
     void removeForest(Forest forest);
     List<User> getUsers();
