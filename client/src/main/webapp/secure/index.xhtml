@@ -78,8 +78,8 @@
             }
         </script>
 
-        <p:socket onMessage="handleMessage" channel="/reload">
-            <p:ajax event="message" update="@all"/>
+        <p:socket channel="/reload">
+            <p:ajax event="message" update=":all-categories-group"/>
         </p:socket>
 
 
