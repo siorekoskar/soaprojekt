@@ -16,6 +16,9 @@ import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Remote(RemoteCatalogue.class)
@@ -97,7 +100,15 @@ public class Catalogue implements RemoteCatalogue {
             powerDtos.add(powerDto);
         });
 
-        gameSoapServicePort.getNewPowerLevels(powerDtos);
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.submit(() -> {
+            try {
+                TimeUnit.SECONDS.sleep(8);
+                gameSoapServicePort.getNewPowerLevels(powerDtos);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     private List<Elf> generateNewPowers(int elementType) {

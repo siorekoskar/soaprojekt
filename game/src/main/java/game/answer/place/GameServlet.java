@@ -31,5 +31,6 @@ public class GameServlet extends HttpServlet {
         elementTypeDto.setIntLabel1(elementUpdate);
         elementTypeDto.setId(elementId);
         soapServicesImplPort.modifyLabel(elementTypeDto);
+        resp.getWriter().write("<div>WYSLANO REQUEST - DOJDZIE ZA 8 SEKUND</div>");
     }
 }
