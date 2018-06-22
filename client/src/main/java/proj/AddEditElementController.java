@@ -50,15 +50,22 @@ public class AddEditElementController implements Serializable {
     }
 
     public String sendElement() {
-        remoteCatalogue.addElf(currentElement);
-        currentElement = new Elf();
-        fireEvent();
-        conversation.end();
+        if(currentElement.getElfId() == null) {
+            remoteCatalogue.addElf(currentElement);
+            currentElement = new Elf();
+            fireEvent();
+            conversation.end();
+        } else {
+            remoteCatalogue.changeVariables(currentElement);
+            currentElement = new Elf();
+            fireEvent();
+            conversation.end();
+        }
         return "/secure/index.xhtml";
     }
 
     public String goToNextPage() {
-        return "/secure/add-element2.xhtml?cdi=" + conversation.getId();
+        return "/secure/add-element2.xhtml?cid=" + conversation.getId();
     }
 
     public List<ElementType> getElementTypes() {
@@ -67,7 +74,7 @@ public class AddEditElementController implements Serializable {
 
     public String goToEdit(Elf element) {
         this.currentElement = element;
-        return "/secure/add-element.xhtml?cdi=" + conversation.getId();
+        return "/secure/add-element.xhtml?cid=" + conversation.getId();
     }
 
     private void fireEvent() {

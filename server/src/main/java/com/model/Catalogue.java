@@ -85,6 +85,11 @@ public class Catalogue implements RemoteCatalogue {
     }
 
     @Override
+    public int changeVariables(Elf element) {
+        return entityDao.addElement(element);
+    }
+
+    @Override
     public void removeElf(Elf elf) {
         entityDao.removeElement(elf);
     }
