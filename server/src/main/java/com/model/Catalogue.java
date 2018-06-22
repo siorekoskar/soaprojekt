@@ -80,7 +80,7 @@ public class Catalogue implements RemoteCatalogue {
             users.add(elf1.getForestsByForestId().getUsersByUserId().getLogin());
         }
 
-        jmsService.sendMessage("username", prepareSelector(users), "new ENEMY");
+        jmsService.sendMessage("username", users, "new ENEMY");
 //        jmsService.sendMessage("ALL", "ALL", "new ENEMY");
         return entityDao.addElement(elf);
     }
