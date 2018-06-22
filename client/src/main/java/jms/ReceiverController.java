@@ -1,5 +1,6 @@
 package jms;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -19,6 +20,7 @@ public class ReceiverController implements Serializable {
     @Resource(mappedName = "java:jboss/jms/queue/messageTopic")
     private Topic topic;
 
+    @PostConstruct
     public void createReceiver() {
         try {
             Principal userPrincipal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
@@ -26,11 +28,13 @@ public class ReceiverController implements Serializable {
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
             connection.start();
             String userName = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
-//            MessageConsumer messageConsumer = session.createConsumer(topic, "username = " + "'" + userName + "'");
-            MessageConsumer messageConsumer = session.createConsumer(topic, "username='" +userName+"'");//, "ALL");
+            MessageConsumer messageConsumer = session.createConsumer(topic, "username='" + userName + "'");
             messageConsumer.setMessageListener(new Receiver(this, userPrincipal.getName()));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void foo() {
     }
 }

@@ -80,15 +80,8 @@ public class Catalogue implements RemoteCatalogue {
             users.add(elf1.getForestsByForestId().getUsersByUserId().getLogin());
         }
 
-        jmsService.sendMessage("username", users, "new ENEMY");
-//        jmsService.sendMessage("ALL", "ALL", "new ENEMY");
+        jmsService.sendMessage("username", users, elf.toString());
         return entityDao.addElement(elf);
-    }
-
-    private String prepareSelector(Set<String> users) {
-        StringJoiner stringJoiner = new StringJoiner("OR", "(", ")");
-        users.forEach(username -> stringJoiner.add(String.format("(username = '%s')", username)));
-        return stringJoiner.toString();
     }
 
     @Override

@@ -46,7 +46,7 @@ public class CatalogBean implements Serializable {
 
     @PostConstruct
     private void init() {
-        receiverController.createReceiver();
+        receiverController.foo();
         categories = remoteCatalogue.getForests();
         elements = remoteCatalogue.getElves();
     }
@@ -86,17 +86,17 @@ public class CatalogBean implements Serializable {
                 .map(Forest::getElvesByForestId)
                 .collect(Collectors.toList());
 
-        if(elements == null){
+        if (elements == null) {
             return bestElements;
         }
 
         for (List<Elf> element : elements) {
-            if(element.size() == 0){
+            if (element.size() == 0) {
                 return bestElements;
             }
             Elf bestElement = element.get(0);
             for (Elf element1 : element) {
-                if(element1.getPower() > bestElement.getPower()){
+                if (element1.getPower() > bestElement.getPower()) {
                     bestElement = element1;
                 }
             }
