@@ -27,6 +27,20 @@ public interface SoapServices {
      * 
      * @param arg0
      * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "modifyLabel", targetNamespace = "http://soap/", className = "game.answer.place.wsdl.ModifyLabel")
+    @ResponseWrapper(localName = "modifyLabelResponse", targetNamespace = "http://soap/", className = "game.answer.place.wsdl.ModifyLabelResponse")
+    public boolean modifyLabel(
+        @WebParam(name = "arg0", targetNamespace = "")
+        ElementTypeDto arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
      *     returns java.lang.Integer
      */
     @WebMethod

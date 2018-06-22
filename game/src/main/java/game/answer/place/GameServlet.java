@@ -1,9 +1,9 @@
 package game.answer.place;
 
 
+import game.answer.place.wsdl.ElementTypeDto;
 import game.answer.place.wsdl.SoapServices;
 import game.answer.place.wsdl.SoapServicesImplService;
-import game.answer.place.wsdl.UpdateElementDto;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,14 +22,14 @@ public class GameServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int elementUpdate = Integer.parseInt(req.getParameter("elementUpdate"));
+        String elementUpdate = req.getParameter("elementUpdate");
         int elementId = Integer.parseInt(req.getParameter("elementId"));
 
         SoapServicesImplService soapServicesImplService = new SoapServicesImplService();
         SoapServices soapServicesImplPort = soapServicesImplService.getSoapServicesImplPort();
-        UpdateElementDto updateElementDto = new UpdateElementDto();
-        updateElementDto.setElementId(elementId);
-        updateElementDto.setNewArrowCount(elementUpdate);
-        Integer integer = soapServicesImplPort.modifyParameterForElement(updateElementDto);
+        ElementTypeDto elementTypeDto = new ElementTypeDto();
+        elementTypeDto.setIntLabel1(elementUpdate);
+        elementTypeDto.setId(elementId);
+        soapServicesImplPort.modifyLabel(elementTypeDto);
     }
 }

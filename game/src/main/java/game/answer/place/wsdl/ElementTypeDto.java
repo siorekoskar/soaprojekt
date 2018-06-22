@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="intLabel1" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="intLabel2" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="nameLabel" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -30,6 +31,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "elementTypeDto", propOrder = {
+    "id",
     "intLabel1",
     "intLabel2",
     "nameLabel",
@@ -37,10 +39,27 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class ElementTypeDto {
 
+    protected int id;
     protected String intLabel1;
     protected String intLabel2;
     protected String nameLabel;
     protected String powerLabel;
+
+    /**
+     * Gets the value of the id property.
+     * 
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Sets the value of the id property.
+     * 
+     */
+    public void setId(int value) {
+        this.id = value;
+    }
 
     /**
      * Gets the value of the intLabel1 property.

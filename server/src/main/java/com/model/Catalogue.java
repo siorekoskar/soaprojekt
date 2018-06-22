@@ -60,6 +60,22 @@ public class Catalogue implements RemoteCatalogue {
     }
 
     @Override
+    public boolean modifyLabel(ElementTypeDto elementType) {
+        Optional<ElementType> oElementType = getElementTypes().stream()
+                .filter(elem -> elem.getElementTypeId().equals(elementType.getId()))
+                .findFirst();
+
+        if (oElementType.isPresent()) {
+            ElementType actualElementType = oElementType.get();
+            actualElementType.setIntLabel1(elementType.getIntLabel1());
+            entityDao.addElementType(actualElementType);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
     public List<Elf> getElves() {
         return entityDao.getElements();
     }

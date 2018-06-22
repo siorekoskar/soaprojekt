@@ -24,7 +24,9 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _ModifyLabel_QNAME = new QName("http://soap/", "modifyLabel");
     private final static QName _AddNewCategories_QNAME = new QName("http://soap/", "addNewCategories");
+    private final static QName _ModifyLabelResponse_QNAME = new QName("http://soap/", "modifyLabelResponse");
     private final static QName _ModifyParameterForElementResponse_QNAME = new QName("http://soap/", "modifyParameterForElementResponse");
     private final static QName _AddNewCategoriesResponse_QNAME = new QName("http://soap/", "addNewCategoriesResponse");
     private final static QName _AddNewCharactersResponse_QNAME = new QName("http://soap/", "addNewCharactersResponse");
@@ -71,11 +73,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ModifyLabel }
+     * 
+     */
+    public ModifyLabel createModifyLabel() {
+        return new ModifyLabel();
+    }
+
+    /**
      * Create an instance of {@link AddNewCategories }
      * 
      */
     public AddNewCategories createAddNewCategories() {
         return new AddNewCategories();
+    }
+
+    /**
+     * Create an instance of {@link ModifyLabelResponse }
+     * 
+     */
+    public ModifyLabelResponse createModifyLabelResponse() {
+        return new ModifyLabelResponse();
     }
 
     /**
@@ -111,12 +129,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ModifyLabel }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://soap/", name = "modifyLabel")
+    public JAXBElement<ModifyLabel> createModifyLabel(ModifyLabel value) {
+        return new JAXBElement<ModifyLabel>(_ModifyLabel_QNAME, ModifyLabel.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link AddNewCategories }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://soap/", name = "addNewCategories")
     public JAXBElement<AddNewCategories> createAddNewCategories(AddNewCategories value) {
         return new JAXBElement<AddNewCategories>(_AddNewCategories_QNAME, AddNewCategories.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ModifyLabelResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://soap/", name = "modifyLabelResponse")
+    public JAXBElement<ModifyLabelResponse> createModifyLabelResponse(ModifyLabelResponse value) {
+        return new JAXBElement<ModifyLabelResponse>(_ModifyLabelResponse_QNAME, ModifyLabelResponse.class, null, value);
     }
 
     /**

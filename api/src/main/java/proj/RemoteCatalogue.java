@@ -21,4 +21,5 @@ public interface RemoteCatalogue {
 
     void sendCategoryType(CategoryTypeDto categoryTypeDto);
     void sendElementType(ElementTypeDto elementTypeDto);
+    boolean modifyLabel(ElementTypeDto elementType);
 }

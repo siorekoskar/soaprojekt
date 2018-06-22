@@ -10,9 +10,35 @@
 
   <xs:element name="addNewCharactersResponse" type="tns:addNewCharactersResponse"></xs:element>
 
+  <xs:element name="modifyLabel" type="tns:modifyLabel"></xs:element>
+
+  <xs:element name="modifyLabelResponse" type="tns:modifyLabelResponse"></xs:element>
+
   <xs:element name="modifyParameterForElement" type="tns:modifyParameterForElement"></xs:element>
 
   <xs:element name="modifyParameterForElementResponse" type="tns:modifyParameterForElementResponse"></xs:element>
+
+  <xs:complexType name="modifyLabel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:elementTypeDto"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="elementTypeDto">
+    <xs:sequence>
+      <xs:element name="id" type="xs:int"></xs:element>
+      <xs:element minOccurs="0" name="intLabel1" type="xs:string"></xs:element>
+      <xs:element minOccurs="0" name="intLabel2" type="xs:string"></xs:element>
+      <xs:element minOccurs="0" name="nameLabel" type="xs:string"></xs:element>
+      <xs:element minOccurs="0" name="powerLabel" type="xs:string"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="modifyLabelResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
 
   <xs:complexType name="modifyParameterForElement">
     <xs:sequence>
@@ -39,15 +65,6 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="elementTypeDto">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="intLabel1" type="xs:string"></xs:element>
-      <xs:element minOccurs="0" name="intLabel2" type="xs:string"></xs:element>
-      <xs:element minOccurs="0" name="nameLabel" type="xs:string"></xs:element>
-      <xs:element minOccurs="0" name="powerLabel" type="xs:string"></xs:element>
-    </xs:sequence>
-  </xs:complexType>
-
   <xs:complexType name="addNewCharactersResponse">
     <xs:sequence></xs:sequence>
   </xs:complexType>
@@ -71,6 +88,14 @@
 
 </xs:schema>
   </wsdl:types>
+  <wsdl:message name="modifyLabel">
+    <wsdl:part element="tns:modifyLabel" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="modifyLabelResponse">
+    <wsdl:part element="tns:modifyLabelResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="modifyParameterForElementResponse">
     <wsdl:part element="tns:modifyParameterForElementResponse" name="parameters">
     </wsdl:part>
@@ -96,6 +121,12 @@
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="SoapServices">
+    <wsdl:operation name="modifyLabel">
+      <wsdl:input message="tns:modifyLabel" name="modifyLabel">
+    </wsdl:input>
+      <wsdl:output message="tns:modifyLabelResponse" name="modifyLabelResponse">
+    </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="modifyParameterForElement">
       <wsdl:input message="tns:modifyParameterForElement" name="modifyParameterForElement">
     </wsdl:input>
@@ -117,6 +148,15 @@
   </wsdl:portType>
   <wsdl:binding name="SoapServicesImplServiceSoapBinding" type="tns:SoapServices">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"></soap:binding>
+    <wsdl:operation name="modifyLabel">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input name="modifyLabel">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="modifyLabelResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="modifyParameterForElement">
       <soap:operation soapAction="" style="document"></soap:operation>
       <wsdl:input name="modifyParameterForElement">

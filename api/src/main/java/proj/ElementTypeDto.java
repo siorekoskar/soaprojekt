@@ -10,6 +10,7 @@ public class ElementTypeDto implements Serializable {
     private String intLabel1;
     private String intLabel2;
     private String powerLabel;
+    private int id;
 
     public ElementTypeDto(String nameLabel, String intLabel1, String intLabel2, String powerLabel) {
         this.nameLabel = nameLabel;
@@ -60,5 +61,13 @@ public class ElementTypeDto implements Serializable {
         elementType.setNameLabel(elementTypeDto.getNameLabel());
         elementType.setPowerLabel(elementTypeDto.getPowerLabel());
         return elementType;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

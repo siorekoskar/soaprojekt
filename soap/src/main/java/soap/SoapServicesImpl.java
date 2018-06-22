@@ -43,5 +43,9 @@ public class SoapServicesImpl implements SoapServices {
         }
     }
 
-
+    @Override
+    @WebMethod
+    public boolean modifyLabel(ElementTypeDto elementTypeDto) {
+        return remoteCatalogue.modifyLabel(elementTypeDto);
+    }
 }

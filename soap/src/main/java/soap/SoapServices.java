@@ -18,4 +18,7 @@ public interface SoapServices {
 
     @WebMethod
     Integer modifyParameterForElement(UpdateElementDto updateElementDto);
+
+    @WebMethod
+    boolean modifyLabel(ElementTypeDto elementTypeDto);
 }
