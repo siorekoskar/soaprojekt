@@ -82,6 +82,13 @@
             <p:ajax event="message" update=":all-categories-group"/>
         </p:socket>
 
+        <p:socket channel="/jms" >
+            <p:ajax event="message" update="jmsMessage"/>
+        </p:socket>
+
+        <p:panel id="jmsMessage">
+            #{receiverController.message}
+        </p:panel>
 
         <h:link value="add category" outcome="add-category.xhtml"/><br/>
         <h:link value="add element" outcome="add-element.xhtml"/><br/>

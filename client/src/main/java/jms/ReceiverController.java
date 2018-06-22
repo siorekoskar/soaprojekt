@@ -1,8 +1,12 @@
 package jms;
 
+import org.primefaces.push.EventBus;
+import org.primefaces.push.EventBusFactory;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.jms.*;
@@ -20,6 +24,8 @@ public class ReceiverController implements Serializable {
     @Resource(mappedName = "java:jboss/jms/queue/messageTopic")
     private Topic topic;
 
+    private String message;
+
     @PostConstruct
     public void createReceiver() {
         try {
@@ -36,5 +42,20 @@ public class ReceiverController implements Serializable {
     }
 
     public void foo() {
+//        this.message = null;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void sendMessage(String messageContent) {
+        this.message = messageContent;
+        EventBus eventBus = EventBusFactory.getDefault().eventBus();
+        eventBus.publish("/jms", new FacesMessage(messageContent));
     }
 }

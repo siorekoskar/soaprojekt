@@ -23,6 +23,7 @@ public class Receiver implements MessageListener {
     public void onMessage(Message message) {
         try {
             String messageContent = ((TextMessage) message).getText();
+            receiverController.sendMessage(messageContent);
             logger.warning("jestem u uzytkownika: " + username);
         } catch (JMSException e) {
             throw new RuntimeException(e);
