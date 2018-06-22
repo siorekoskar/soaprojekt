@@ -19,7 +19,8 @@ public class JMSService {
             MessageProducer messageProducer = session.createProducer(topic);
             connection.start();
             TextMessage textMessage = session.createTextMessage(message);
-            textMessage.setStringProperty(name, "admin");
+            textMessage.setStringProperty("username", "admin");
+//            messageProducer.
             messageProducer.send(textMessage);
         } catch (Exception e) {
             e.printStackTrace();

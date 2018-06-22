@@ -27,7 +27,7 @@ public class ReceiverController implements Serializable {
             connection.start();
             String userName = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
 //            MessageConsumer messageConsumer = session.createConsumer(topic, "username = " + "'" + userName + "'");
-            MessageConsumer messageConsumer = session.createConsumer(topic, "username = 'admin'");//, "ALL");
+            MessageConsumer messageConsumer = session.createConsumer(topic, String.format("username = '%s'", userName));//, "ALL");
             messageConsumer.setMessageListener(new Receiver(this, userPrincipal.getName()));
         } catch (Exception e) {
             throw new RuntimeException(e);
