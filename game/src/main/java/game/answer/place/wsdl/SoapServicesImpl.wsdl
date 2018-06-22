@@ -1,0 +1,153 @@
+<?xml version="1.0" ?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://soap/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="SoapServicesImplService" targetNamespace="http://soap/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://soap/" elementFormDefault="unqualified" targetNamespace="http://soap/" version="1.0">
+
+  <xs:element name="addNewCategories" type="tns:addNewCategories"></xs:element>
+
+  <xs:element name="addNewCategoriesResponse" type="tns:addNewCategoriesResponse"></xs:element>
+
+  <xs:element name="addNewCharacters" type="tns:addNewCharacters"></xs:element>
+
+  <xs:element name="addNewCharactersResponse" type="tns:addNewCharactersResponse"></xs:element>
+
+  <xs:element name="modifyParameterForElement" type="tns:modifyParameterForElement"></xs:element>
+
+  <xs:element name="modifyParameterForElementResponse" type="tns:modifyParameterForElementResponse"></xs:element>
+
+  <xs:complexType name="modifyParameterForElement">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:updateElementDto"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="updateElementDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="elementId" type="xs:int"></xs:element>
+      <xs:element minOccurs="0" name="newArrowCount" type="xs:int"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="modifyParameterForElementResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:int"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="addNewCharacters">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:elementTypeDto"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="elementTypeDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="intLabel1" type="xs:string"></xs:element>
+      <xs:element minOccurs="0" name="intLabel2" type="xs:string"></xs:element>
+      <xs:element minOccurs="0" name="nameLabel" type="xs:string"></xs:element>
+      <xs:element minOccurs="0" name="powerLabel" type="xs:string"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="addNewCharactersResponse">
+    <xs:sequence></xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="addNewCategories">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:categoryTypeDto"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="categoryTypeDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="categoryName" type="xs:string"></xs:element>
+      <xs:element minOccurs="0" name="categoryPropertyLabel" type="xs:string"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="addNewCategoriesResponse">
+    <xs:sequence></xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="modifyParameterForElementResponse">
+    <wsdl:part element="tns:modifyParameterForElementResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addNewCategories">
+    <wsdl:part element="tns:addNewCategories" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addNewCharactersResponse">
+    <wsdl:part element="tns:addNewCharactersResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addNewCategoriesResponse">
+    <wsdl:part element="tns:addNewCategoriesResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="modifyParameterForElement">
+    <wsdl:part element="tns:modifyParameterForElement" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addNewCharacters">
+    <wsdl:part element="tns:addNewCharacters" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="SoapServices">
+    <wsdl:operation name="modifyParameterForElement">
+      <wsdl:input message="tns:modifyParameterForElement" name="modifyParameterForElement">
+    </wsdl:input>
+      <wsdl:output message="tns:modifyParameterForElementResponse" name="modifyParameterForElementResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addNewCharacters">
+      <wsdl:input message="tns:addNewCharacters" name="addNewCharacters">
+    </wsdl:input>
+      <wsdl:output message="tns:addNewCharactersResponse" name="addNewCharactersResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addNewCategories">
+      <wsdl:input message="tns:addNewCategories" name="addNewCategories">
+    </wsdl:input>
+      <wsdl:output message="tns:addNewCategoriesResponse" name="addNewCategoriesResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SoapServicesImplServiceSoapBinding" type="tns:SoapServices">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"></soap:binding>
+    <wsdl:operation name="modifyParameterForElement">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input name="modifyParameterForElement">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="modifyParameterForElementResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addNewCharacters">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input name="addNewCharacters">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="addNewCharactersResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addNewCategories">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input name="addNewCategories">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="addNewCategoriesResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SoapServicesImplService">
+    <wsdl:port binding="tns:SoapServicesImplServiceSoapBinding" name="SoapServicesImplPort">
+      <soap:address location="http://localhost:8080/soap/SoapServicesImpl"></soap:address>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
