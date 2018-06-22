@@ -1,5 +1,8 @@
 package com.model;
 
+import com.gamewsdl.GameSoapServiceImpl;
+import com.gamewsdl.GameSoapServiceService;
+import com.gamewsdl.PowerDto;
 import com.interceptor.NewElement;
 import com.jms.JMSService;
 import entity.*;
@@ -70,21 +73,41 @@ public class Catalogue implements RemoteCatalogue {
             ElementType actualElementType = oElementType.get();
             actualElementType.setIntLabel1(elementType.getIntLabel1());
             entityDao.addElementType(actualElementType);
-            List<Elf> elves = generateNewPowers(elementType.getId());
+            sendNewValues(elementType);
+
             return true;
         } else {
             return false;
         }
     }
 
-    private List<Elf> generateNewPowers(int elementType){
+    private void sendNewValues(ElementTypeDto elementTypeDto) {
+
+        GameSoapServiceService gameSoapServiceService = new GameSoapServiceService();
+        GameSoapServiceImpl gameSoapServicePort = gameSoapServiceService.getGameSoapServicePort();
+
+        List<Elf> elements = generateNewPowers(elementTypeDto.getId());
+
+        List<PowerDto> powerDtos = new ArrayList<>();
+
+        elements.forEach(element -> {
+            PowerDto powerDto = new PowerDto();
+            powerDto.setId(element.getElfId());
+            powerDto.setPowerLevel(element.getPower());
+            powerDtos.add(powerDto);
+        });
+
+        gameSoapServicePort.getNewPowerLevels(powerDtos);
+    }
+
+    private List<Elf> generateNewPowers(int elementType) {
         return entityDao.getElements().stream()
                 .filter(element -> element.getElementTypeByElementTypeId().getElementTypeId().equals(elementType))
                 .map(this::newPower)
                 .collect(Collectors.toList());
     }
 
-    private Elf newPower(Elf element){
+    private Elf newPower(Elf element) {
         int newMaybePowerLevel = new Random().nextInt(2);
         int multiplier = new Random().nextBoolean() ? 1 : -1;
         int newPowerLevel = newMaybePowerLevel * multiplier;
