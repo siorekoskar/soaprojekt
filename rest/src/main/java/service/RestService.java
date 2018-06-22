@@ -20,6 +20,10 @@ public class RestService {
     public List<Forest> filterCategories(Integer categoryId) {
         List<Forest> categories = remoteCatalogue.getForests();
 
+        if(categoryId == null){
+            return categories;
+        }
+
         return categories.stream()
                 .filter(category -> category.getForestId().equals(categoryId))
                 .collect(Collectors.toList());
