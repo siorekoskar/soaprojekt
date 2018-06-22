@@ -62,14 +62,16 @@
             </h:panelGroup>
         </h:form>
 
-        <h:panelGroup id="most-powerful">
-            <p:outputLabel value="BEST ELEMENTS!"/>
-            <ul>
-                <ui:repeat value="#{catalogBean.bestElements()}" var="element">
-                    <li>#{element}</li>
-                </ui:repeat>
-            </ul>
-        </h:panelGroup>
+        <h:form id="best-players">
+            <h:panelGroup id="most-powerful">
+                <p:outputLabel value="BEST ELEMENTS!"/>
+                <ul>
+                    <ui:repeat value="#{catalogBean.bestElements()}" var="element">
+                        <li>#{element}</li>
+                    </ui:repeat>
+                </ul>
+            </h:panelGroup>
+        </h:form>
 
         <script type="text/javascript">
             function handleMessage(facesmessage) {
@@ -79,10 +81,10 @@
         </script>
 
         <p:socket channel="/reload">
-            <p:ajax event="message" update=":all-categories-group"/>
+            <p:ajax event="message" update=":all-categories-group :best-players"/>
         </p:socket>
 
-        <p:socket channel="/jms" >
+        <p:socket channel="/jms">
             <p:ajax event="message" update="jmsMessage"/>
         </p:socket>
 
