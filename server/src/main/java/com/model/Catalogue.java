@@ -12,10 +12,7 @@ import proj.UserDetails;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.StringJoiner;
+import java.util.*;
 
 @Remote(RemoteCatalogue.class)
 @Stateless
@@ -77,23 +74,20 @@ public class Catalogue implements RemoteCatalogue {
     public int addElf(Elf elf) {
         ElementType elementTypeByElementTypeId = elf.getElementTypeByElementTypeId();
         List<Elf> elvesByElementTypeId = elementTypeByElementTypeId.getElvesByElementTypeId();
-        List<User> users = new ArrayList<>();
+        Set<String> users = new HashSet<>();
 
         for (Elf elf1 : elvesByElementTypeId) {
-            users.add(elf1.getForestsByForestId().getUsersByUserId());
+            users.add(elf1.getForestsByForestId().getUsersByUserId().getLogin());
         }
 
-//        jmsService.sendMessage("username", prepareSelector(users), "new ENEMY");
-        jmsService.sendMessage("ALL", "ALL", "new ENEMY");
+        jmsService.sendMessage("username", prepareSelector(users), "new ENEMY");
+//        jmsService.sendMessage("ALL", "ALL", "new ENEMY");
         return entityDao.addElement(elf);
     }
 
-    private String prepareSelector(List<User> users) {
+    private String prepareSelector(Set<String> users) {
         StringJoiner stringJoiner = new StringJoiner("OR", "(", ")");
-        for (User user : users) {
-            String login = user.getLogin();
-            stringJoiner.add(String.format("(username = '%s')", login));
-        }
+        users.forEach(username -> stringJoiner.add(String.format("(username = '%s')", username)));
         return stringJoiner.toString();
     }
 
