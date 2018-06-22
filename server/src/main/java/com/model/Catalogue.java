@@ -13,6 +13,7 @@ import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Remote(RemoteCatalogue.class)
 @Stateless
@@ -69,10 +70,26 @@ public class Catalogue implements RemoteCatalogue {
             ElementType actualElementType = oElementType.get();
             actualElementType.setIntLabel1(elementType.getIntLabel1());
             entityDao.addElementType(actualElementType);
+            List<Elf> elves = generateNewPowers(elementType.getId());
             return true;
         } else {
             return false;
         }
+    }
+
+    private List<Elf> generateNewPowers(int elementType){
+        return entityDao.getElements().stream()
+                .filter(element -> element.getElementTypeByElementTypeId().getElementTypeId().equals(elementType))
+                .map(this::newPower)
+                .collect(Collectors.toList());
+    }
+
+    private Elf newPower(Elf element){
+        int newMaybePowerLevel = new Random().nextInt(2);
+        int multiplier = new Random().nextBoolean() ? 1 : -1;
+        int newPowerLevel = newMaybePowerLevel * multiplier;
+        element.setPower(element.getPower() + newPowerLevel);
+        return element;
     }
 
     @Override
